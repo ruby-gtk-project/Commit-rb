@@ -10,3 +10,4 @@ Gemfile.lock
 /repo/
 /.flatpak-builder/
 /Commit.flatpak
+/.bundle/
