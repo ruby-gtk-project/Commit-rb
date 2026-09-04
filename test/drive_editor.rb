@@ -113,6 +113,31 @@ GtkDriver.drive(app_object, shots: SHOTS) do |d, app|
     end
   end
 
+  d.step("the main menu opens") do
+    app.editor_window.menu_button.popup
+  end
+
+  # The popover animates open; give it a turn before looking at it.
+  d.step("let the popover settle") {}
+
+  d.step("it has the theme switcher in it") do
+    app.editor_window.then do |window|
+      d.check("the popover is up") { window.menu_button.popover.visible? }
+      d.check("the theme selector is in the popover") { window.theme_selector.bin.realized? }
+      d.check("all three swatches are there") do
+        [window.theme_selector.follow_button,
+         window.theme_selector.light_button,
+         window.theme_selector.dark_button
+].all? { |swatch| swatch.is_a?(Gtk::CheckButton) }
+      end
+      d.check("they are wired to the colour scheme action") do
+        window.theme_selector.dark_button.action_name == "app.color-scheme"
+      end
+      d.shot("08-menu", window.menu_button.popover)
+      window.menu_button.popdown
+    end
+  end
+
   d.step("the theme selector drives the colour scheme") do
     app.application.lookup_action("color-scheme").tap do |action|
       action.activate(GLib::Variant.new(ThemeSelectorDark, "i"))
@@ -171,17 +196,30 @@ GtkDriver.drive(app_object, shots: SHOTS) do |d, app|
     end
   end
 
-  d.step("the shortcuts dialog opens") do
+  d.step("the shortcuts window opens") do
     app.application.lookup_action("shortcuts").activate(nil)
   end
 
   d.step("let it settle") {}
 
-  d.step("the shortcuts dialog is showing") do
-    app.editor_window.window.then do |win|
-      d.check("shortcuts dialog is open") { win.visible_dialog }
-      d.shot("04-shortcuts", win.visible_dialog)
-      win.visible_dialog&.close
+  d.step("the shortcuts window is showing") do
+    app.shortcuts_window.then do |shortcuts|
+      d.check("it is a real GtkShortcutsWindow") { shortcuts.window.is_a?(Gtk::ShortcutsWindow) }
+      d.check("it is visible") { shortcuts.window.visible? }
+      d.check("it is transient for the editor") do
+        shortcuts.window.transient_for == app.editor_window.window
+      end
+      d.check("the editing group is titled") do
+        shortcuts.builder.get_object("group_editing").title == "Editing"
+      end
+      d.check("the save shortcut is titled") do
+        shortcuts.builder.get_object("shortcut_save").title == "Save and Confirm"
+      end
+      d.check("and carries its accelerator") do
+        shortcuts.builder.get_object("shortcut_save").accelerator == "<Control>Return"
+      end
+      d.shot("04-shortcuts", shortcuts.window)
+      shortcuts.window.close
     end
   end
 
@@ -189,7 +227,10 @@ GtkDriver.drive(app_object, shots: SHOTS) do |d, app|
     app.application.lookup_action("about").activate(nil)
   end
 
+  # The about dialog animates in and loads its icon, so it wants two.
   d.step("let it settle too") {}
+
+  d.step("and once more") {}
 
   d.step("the about dialog is showing") do
     app.editor_window.window.then do |win|

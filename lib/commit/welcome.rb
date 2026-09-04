@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative "dev"
 require_relative "i18n"
 require_relative "preference_rows"
 
@@ -113,6 +114,10 @@ module Commit
       @window ||= Adwaita::ApplicationWindow.new(application).tap do |win|
         win.title = "Commit"
         win.set_default_size(560, 640)
+
+        if Dev.enabled?
+          win.add_css_class("devel")
+        end
       end
     end
 

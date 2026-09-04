@@ -25,8 +25,12 @@ preferences, same twenty translations.
 ```sh
 direnv allow          # or: nix develop
 bundle install
-bin/commit path/to/COMMIT_EDITMSG
+bundle exec ruby bin/commit path/to/COMMIT_EDITMSG
 ```
+
+`bin/commit-dev` is the same app run as a development build — the windows get
+libadwaita's `devel` striping and `<Control><Shift>Q` restarts it in place,
+which is what upstream's `src/local.js` does. `make run` is that.
 
 With no arguments you get the welcome window, which has the global preferences
 and the command that makes Commit your editor:
@@ -51,25 +55,44 @@ bundle exec ruby test/test_scm.rb          # message parsing, against the upstre
 bundle exec ruby test/test_translations.rb # the compiled catalogues
 env -u DISPLAY -u WAYLAND_DISPLAY bundle exec ruby test/drive_editor.rb
 env -u DISPLAY -u WAYLAND_DISPLAY bundle exec ruby test/drive_welcome.rb
+env -u DISPLAY -u WAYLAND_DISPLAY bundle exec ruby test/drive_dev.rb
 ```
 
-The two `drive_` scripts run the app headlessly, click through it and write
+`make test` runs all of that plus the metadata validation.
+
+The `drive_` scripts run the app headlessly, click through it and write
 screenshots to `tmp/shots/`. They give themselves a temporary `HOME` and
 working directory, because Commit writes to real gitconfig files.
 
+Roughly one screenshot in six runs comes back empty — the offscreen backend
+occasionally has no render node for a widget that was reconfigured a moment
+earlier. The harness retries, reports the ones it gave up on, and carries on;
+the checks are what a run is judged on.
+
 ## Differences from upstream
 
-- **Keyboard shortcuts window.** GTK deprecated `GtkShortcutsWindow` and its
-  Ruby constructor is broken; the port uses `AdwShortcutsDialog`, which shows
-  the same list.
+The app itself is the same. What differs is underneath it:
+
+- **The shortcuts window and the theme switcher are built from `.ui` files**
+  (`data/shortcuts-window.ui`, `data/theme-selector.ui`), the way upstream
+  builds them from Blueprint. They have to be: `GtkShortcutsWindow` cannot be
+  constructed from the Ruby bindings — the generated constructor resolves to
+  `GtkWindow`'s and raises, and the raw GObject one leaves the floating
+  references unsunk — and `gtk_accessible_update_property` is not implemented,
+  so `<accessibility>` in the XML is the only way to label the three theme
+  swatches. GtkBuilder translates both files against the C gettext domain,
+  which `lib/commit/i18n.rb` binds to the same catalogues the Ruby side uses.
 - **Wrap toggling on resize.** Upstream overrides `size_allocate`. The Ruby
   bindings do not expose that vfunc, so the port watches the scrolled window's
   hadjustment instead — it changes with the view's width on every resize.
-- **Accessibility labels on the theme switcher.** `gtk_accessible_update_property`
-  is not implemented in the Ruby bindings (it raises `NotImplementedError`), so
-  the three swatches carry their tooltips but not an explicit accessible label.
-- **No dev mode.** Upstream's `src/local.js` — the `.devel` styling and the
-  `<Control><Shift>Q` restart action — is build tooling, not an app feature.
+- **`make` instead of `meson`.** `make install` puts `lib/` and `data/` side by
+  side under `$PREFIX/share/re.sonny.Commit` and drops a launcher in
+  `$PREFIX/bin`. `make test` runs rubocop, the four test scripts, and the same
+  appstream, desktop-file and msgfmt validation upstream's `make test` does.
+- **No flatpak manifest.** Upstream ships `re.sonny.Commit.json`. Building one
+  for this port means putting the whole ruby-gnome stack inside the runtime,
+  and nothing here can build or verify a flatpak, so there is no point
+  shipping a manifest that has never been run.
 
 ## Licence
 

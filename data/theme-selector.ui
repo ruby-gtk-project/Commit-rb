@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  The light / dark / follow-system swatches at the top of the main menu, in
+  the same shape as troll's ThemeSelector.blp.
+
+  Built from XML so the three swatches can carry accessible labels:
+  gtk_accessible_update_property is not implemented in the Ruby bindings, and
+  GtkBuilder's <accessibility> block is the only way to set them.
+-->
+<interface>
+  <object class="AdwBin" id="theme_selector">
+    <property name="hexpand">1</property>
+    <child>
+      <object class="GtkBox">
+        <property name="hexpand">1</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">12</property>
+        <child>
+          <object class="GtkCheckButton" id="follow">
+            <property name="hexpand">1</property>
+            <property name="halign">center</property>
+            <property name="focus-on-click">0</property>
+            <property name="action-name">app.color-scheme</property>
+            <property name="action-target">0</property>
+            <property name="tooltip-text" translatable="yes">Follow system style</property>
+            <style>
+              <class name="theme-selector"/>
+              <class name="follow"/>
+            </style>
+            <accessibility>
+              <property name="label" translatable="yes">Follow system style</property>
+            </accessibility>
+          </object>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="light">
+            <property name="hexpand">1</property>
+            <property name="halign">center</property>
+            <property name="focus-on-click">0</property>
+            <property name="group">follow</property>
+            <property name="action-name">app.color-scheme</property>
+            <property name="action-target">1</property>
+            <property name="tooltip-text" translatable="yes">Light style</property>
+            <style>
+              <class name="theme-selector"/>
+              <class name="light"/>
+            </style>
+            <accessibility>
+              <property name="label" translatable="yes">Light style</property>
+            </accessibility>
+          </object>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="dark">
+            <property name="hexpand">1</property>
+            <property name="halign">center</property>
+            <property name="focus-on-click">0</property>
+            <property name="group">follow</property>
+            <property name="action-name">app.color-scheme</property>
+            <property name="action-target">4</property>
+            <property name="tooltip-text" translatable="yes">Dark style</property>
+            <style>
+              <class name="theme-selector"/>
+              <class name="dark"/>
+            </style>
+            <accessibility>
+              <property name="label" translatable="yes">Dark style</property>
+            </accessibility>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

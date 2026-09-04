@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  The shortcuts window, in the same shape as upstream's src/ShortcutsWindow.blp.
+
+  It is built from XML rather than in code because GtkShortcutsWindow and its
+  children cannot be constructed from the Ruby bindings: the generated
+  constructor resolves to GtkWindow's and raises, and the raw GObject
+  constructor leaves the floating reference unsunk, so the widgets are
+  finalized while still parented. GtkBuilder sinks them correctly.
+
+  Titles are translated by GtkBuilder against the C gettext domain, which
+  lib/commit/i18n.rb binds to the same catalogues the Ruby side uses.
+-->
+<interface>
+  <object class="GtkShortcutsWindow" id="window">
+    <property name="modal">1</property>
+    <child>
+      <object class="GtkShortcutsSection">
+        <property name="section-name">shortcuts</property>
+        <child>
+          <object class="GtkShortcutsGroup" id="group_editing">
+            <property name="title" translatable="yes">Editing</property>
+            <child>
+              <object class="GtkShortcutsShortcut" id="shortcut_save">
+                <property name="title" translatable="yes">Save and Confirm</property>
+                <property name="accelerator">&lt;Control&gt;Return</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut" id="shortcut_cancel">
+                <property name="title" translatable="yes">Cancel and Dismiss</property>
+                <property name="accelerator">Escape</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut" id="shortcut_emoji">
+                <property name="title" translatable="yes">Open Emoji Chooser</property>
+                <property name="accelerator">&lt;Control&gt;period</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut" id="shortcut_move_line">
+                <property name="title" translatable="yes">Move Current Line Up/Down</property>
+                <property name="accelerator">&lt;Alt&gt;Up &lt;Alt&gt;Down</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut" id="shortcut_toggle_comment">
+                <property name="title" translatable="yes">Toggle Line Comment</property>
+                <property name="accelerator">&lt;Control&gt;slash</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut" id="shortcut_select_all">
+                <property name="title" translatable="yes">Select All</property>
+                <property name="accelerator">&lt;Control&gt;a</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut" id="shortcut_unselect_all">
+                <property name="title" translatable="yes">Unselect All</property>
+                <property name="accelerator">&lt;Shift&gt;&lt;Control&gt;a &lt;Control&gt;backslash</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcutsGroup" id="group_general">
+            <property name="title" translatable="yes">General</property>
+            <child>
+              <object class="GtkShortcutsShortcut" id="shortcut_shortcuts">
+                <property name="title" translatable="yes">Keyboard Shortcuts</property>
+                <property name="accelerator">&lt;Control&gt;question</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut" id="shortcut_quit">
+                <property name="title" translatable="yes">Quit</property>
+                <property name="accelerator">&lt;Control&gt;Q</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative "dev"
 require_relative "editor"
 require_relative "i18n"
 require_relative "preferences"
@@ -28,8 +29,12 @@ module Commit
 
     def parsed
       @parsed ||= Scm.parse(@text, type)
-    rescue StandardError
+    rescue StandardError => e
       # A message shape we do not recognise is still editable as plain text.
+      if Dev.enabled?
+        warn("Could not parse #{path}: #{e.class}: #{e.message}")
+      end
+
       Scm.parse("", type)
     end
 
@@ -177,6 +182,10 @@ module Commit
     def window
       @window ||= Adwaita::ApplicationWindow.new(application).tap do |win|
         win.set_default_size(654, 272)
+
+        if Dev.enabled?
+          win.add_css_class("devel")
+        end
       end
     end
 

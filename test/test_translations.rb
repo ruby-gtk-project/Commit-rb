@@ -46,6 +46,19 @@ check(
 )
 check("a string the catalogue has no entry for falls through", strings.lookup("Discard changes?"), "Discard changes?")
 
+# The .ui files are translated by GtkBuilder against the C gettext domain,
+# which is a separate binding from the gem's.
+require_relative "../lib/commit/gi"
+
+Gtk::Builder.new.tap do |builder|
+  builder.translation_domain = Commit::APPLICATION_ID
+  builder.add_from_file(Commit::Paths.shortcuts_window_ui)
+
+  check("a ui file group title", builder.get_object("group_general").title, "Général")
+  check("a ui file shortcut title", builder.get_object("shortcut_quit").title, "Quitter")
+  check("another one", builder.get_object("shortcut_select_all").title, "Sélectionner tout")
+end
+
 puts
 puts "#{$checks - $failures.length} of #{$checks} checks passed"
 exit($failures.empty? ? 0 : 1)

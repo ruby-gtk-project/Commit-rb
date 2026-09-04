@@ -29,6 +29,15 @@ module GtkDriver
   # next one looks at the results.
   DEFAULT_INTERVAL = 500
 
+  # How many turns of the main loop a widget gets to produce a render node
+  # before a screenshot gives up on it.
+  #
+  # Reusing one paintable per widget and retrying takes the offscreen
+  # backend's "no render node" failures down to roughly one shot in six runs,
+  # but not to zero. A skipped screenshot is reported and does not fail the
+  # run — the checks are what the run is judged on.
+  SNAPSHOT_ATTEMPTS = 20
+
   # A hung app would otherwise block forever, which is much worse than a
   # failure — you get no output at all to diagnose.
   DEFAULT_TIMEOUT = 120
@@ -184,18 +193,51 @@ module GtkDriver
       end
 
       def render(widget, path)
-        Gtk::Snapshot.new.then do |snapshot|
-          Gtk::WidgetPaintable.new(widget).tap do |paintable|
-            paintable.snapshot(snapshot, widget.width, widget.height)
+        snapshot_node(widget).then do |node|
+          if node.nil?
+            raise 'widget produced no render node (not realised yet?)'
           end
 
-          snapshot.to_node.then do |node|
+          renderer.render_texture(node, nil).save_to_png(path)
+        end
+      end
+
+      # A freshly created GtkWidgetPaintable has not observed its widget yet
+      # and snapshots to nothing, so the paintable is made once per widget and
+      # kept, and the retries reuse it with a turn of the loop in between.
+      def snapshot_node(widget)
+        paintable_for(widget).then do |paintable|
+          node = nil
+
+          SNAPSHOT_ATTEMPTS.times do
             if node.nil?
-              raise 'widget produced no render node (not realised yet?)'
-            end
+              node = take_snapshot(paintable, widget)
 
-            renderer.render_texture(node, nil).save_to_png(path)
+              if node.nil?
+                # Non-blocking: a blocking iteration here waits forever when
+                # no source is ready, and the run dies on the watchdog
+                # instead of losing one screenshot.
+                widget.queue_draw
+                GLib::MainContext.default.iteration(false)
+              end
+            end
           end
+
+          node
+        end
+      end
+
+      def paintable_for(widget)
+        @paintables ||= {}
+        @paintables[widget] ||= Gtk::WidgetPaintable.new(widget).tap do
+          GLib::MainContext.default.iteration(false)
+        end
+      end
+
+      def take_snapshot(paintable, widget)
+        Gtk::Snapshot.new.then do |snapshot|
+          paintable.snapshot(snapshot, widget.width, widget.height)
+          snapshot.to_node
         end
       end
 

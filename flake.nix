@@ -30,6 +30,10 @@
             gdk-pixbuf
             harfbuzz
             libyaml
+            # `make test` validates the appstream and desktop metadata.
+            appstream
+            desktop-file-utils
+            gettext
             openssl
 
             # The ruby-gnome extconfs resolve Requires.private out of the .pc

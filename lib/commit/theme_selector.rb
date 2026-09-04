@@ -1,33 +1,23 @@
 # frozen_string_literal: true
 
 require_relative "i18n"
+require_relative "paths"
 
 module Commit
   # The light / dark / follow-system control at the top of the main menu.
   #
   # The three check buttons are a radio group wired to the app.color-scheme
   # action; their targets are Adwaita::ColorScheme values, which is what the
-  # GSettings key stores.
+  # GSettings key stores. The widgets come from `data/theme-selector.ui`
+  # because that is the only way to give them accessible labels — the Ruby
+  # bindings raise NotImplementedError on gtk_accessible_update_property.
   class ThemeSelector
-    include Translations
-
     DEFAULT = 0
     FORCE_LIGHT = 1
     FORCE_DARK = 4
 
     def build
       bin.tap do |b|
-        b.child = box
-
-        box.tap do |bx|
-          bx.append(follow_button)
-          bx.append(light_button)
-          bx.append(dark_button)
-
-          light_button.set_group(follow_button)
-          dark_button.set_group(follow_button)
-        end
-
         style_manager.tap do |manager|
           manager.signal_connect("notify::system-supports-color-schemes") { update_follow_visibility }
           manager.signal_connect("notify::dark") { update_dark_class }
@@ -56,35 +46,23 @@ module Commit
 
     def style_manager = Adwaita::StyleManager.default
 
+    def builder
+      @builder ||= Gtk::Builder.new.tap do |b|
+        # AdwBin has to be registered before the builder can resolve it.
+        Adwaita::Bin.gtype
+        b.translation_domain = APPLICATION_ID
+        b.add_from_file(Paths.theme_selector_ui)
+      end
+    end
+
     def bin
-      @bin ||= Adwaita::Bin.new.tap do |b|
-        b.hexpand = true
+      @bin ||= builder.get_object("theme_selector").tap do |b|
         b.add_css_class("themeselector")
       end
     end
 
-    def box
-      @box ||= Gtk::Box.new(:horizontal, 12).tap do |b|
-        b.hexpand = true
-      end
-    end
-
-    def follow_button = @follow_button ||= swatch("follow", DEFAULT, _("Follow system style"))
-    def light_button = @light_button ||= swatch("light", FORCE_LIGHT, _("Light style"))
-    def dark_button = @dark_button ||= swatch("dark", FORCE_DARK, _("Dark style"))
-
-    def swatch(name, color_scheme, tooltip)
-      Gtk::CheckButton.new.tap do |button|
-        button.add_css_class("theme-selector")
-        button.add_css_class(name)
-        button.hexpand = true
-        button.halign = :center
-        button.focus_on_click = false
-        button.tooltip_text = tooltip
-        button.action_name = "app.color-scheme"
-        # An unwrapped Ruby value would be dropped here without a warning.
-        button.action_target = GLib::Variant.new(color_scheme, "i")
-      end
-    end
+    def follow_button = @follow_button ||= builder.get_object("follow")
+    def light_button = @light_button ||= builder.get_object("light")
+    def dark_button = @dark_button ||= builder.get_object("dark")
   end
 end

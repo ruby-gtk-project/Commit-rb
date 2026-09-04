@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 require_relative "about"
+require_relative "dev"
 require_relative "paths"
 require_relative "settings"
-require_relative "shortcuts_dialog"
+require_relative "shortcuts_window"
 require_relative "welcome"
 require_relative "window"
 
@@ -18,7 +19,7 @@ module Commit
 
     # Kept so tests (and anything else outside) have a handle on the windows
     # this opened; the app itself never needs them again.
-    attr_reader :readonly, :editor_window, :welcome_window
+    attr_reader :readonly, :editor_window, :welcome_window, :shortcuts_window
 
     def build
       application.tap do |app|
@@ -48,10 +49,26 @@ module Commit
         app.set_accels_for_action("win.save", ["<Control>Return", "<Control>KP_Enter"])
 
         Settings.settings.signal_connect("changed::color-scheme") { apply_color_scheme }
+
+        if Dev.enabled?
+          app.add_action(restart_action)
+          restart_action.signal_connect("activate") { restart }
+          app.set_accels_for_action("app.restart", ["<Control><Shift>Q"])
+        end
       end
     end
 
-    def run(argv) = application.run(argv)
+    def run(argv)
+      @argv = argv
+      application.run(argv)
+    end
+
+    # Quit and come straight back, so a code change can be picked up without
+    # leaving the window behind.
+    def restart
+      application.quit
+      Process.spawn(*@argv)
+    end
 
     def application
       @application ||= Gtk::Application.new(
@@ -136,9 +153,10 @@ module Commit
     end
 
     def open_shortcuts
-      ShortcutsDialog.new.tap do |shortcuts|
+      ShortcutsWindow.new(application).tap do |shortcuts|
+        @shortcuts_window = shortcuts
         shortcuts.build
-        shortcuts.present(application.active_window)
+        shortcuts.present
       end
     end
 
@@ -166,6 +184,7 @@ module Commit
     def about_action = @about_action ||= Gio::SimpleAction.new("about")
     def shortcuts_action = @shortcuts_action ||= Gio::SimpleAction.new("shortcuts")
     def quit_action = @quit_action ||= Gio::SimpleAction.new("quit")
+    def restart_action = @restart_action ||= Gio::SimpleAction.new("restart")
     def color_scheme_action = @color_scheme_action ||= Settings.settings.create_action("color-scheme")
   end
 end

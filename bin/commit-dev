@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Runs Commit out of the checkout, the way upstream's src/local.js does:
+# marked as a development build and with <Control><Shift>Q to restart it.
+
+require_relative "../lib/commit"
+
+Commit::Dev.enable!
+Commit::Application.new.build.run(ARGV.dup.unshift($PROGRAM_NAME))
