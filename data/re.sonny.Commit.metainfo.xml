@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<component type="desktop">
+  <id>re.sonny.Commit</id>
+  <launchable type="desktop-id">re.sonny.Commit.desktop</launchable>
+  <name translate="no">Commit</name>
+  <developer id="re.sonny">
+    <name translate="no">Sonny Piers</name>
+  </developer>
+  <update_contact>commit@sonny.re</update_contact>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <summary>Commit message editor</summary>
+  <translation type="gettext">re.sonny.Commit</translation>
+  <description>
+    <p>
+      Commit is an editor that helps you write better Git and Mercurial commit
+      messages.
+    </p>
+    <p>
+      After installing make sure to launch the application and follow the
+      instructions.
+    </p>
+    <p>
+      Commit will pop up automatically when you make a commit in one of your projects.
+      To save your commit message, press the Commit button or the <code>Ctrl+Return</code> shortcut.
+      To abort and dismiss Commit, press the Abort button or the <code>Escape</code> key.
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>Highlights overflow of the commit title</li>
+      <li>Smart body wrapping</li>
+      <li>Inserts a blank line between title and body</li>
+      <li>Spell checking</li>
+      <li>Comments are read-only and excluded from "Select All"</li>
+      <li>Displays project folder and branch in window header</li>
+      <li>Dark mode support</li>
+      <li>Keyboard navigation and shortcuts</li>
+      <li>Undo/Redo support</li>
+      <li>Emoji picker</li>
+      <li>Supports git commit, merge, tag --annotate, add --patch, rebase --interactive</li>
+      <li>Supports Mercurial commit</li>
+      <li>Auto capitalize the commit title</li>
+      <li>Welcome window with settings and instructions</li>
+      <li>Highlight syntax for Git, Mercurial and diffs</li>
+    </ul>
+  </description>
+  <url type="homepage">https://commit.sonny.re</url>
+  <url type="bugtracker">https://commit.sonny.re/feedback</url>
+  <url type="donation">https://commit.sonny.re/donate</url>
+  <url type="translate">https://commit.sonny.re/translate</url>
+  <url type="vcs-browser">https://commit.sonny.re/source</url>
+  <screenshots>
+    <screenshot type="default">
+      <image>
+        https://raw.githubusercontent.com/sonnyp/Commit/main/data/screenshots/editor.png
+      </image>
+      <caption>Main window</caption>
+    </screenshot>
+    <screenshot>
+      <image>
+        https://raw.githubusercontent.com/sonnyp/Commit/main/data/screenshots/shortcuts.png
+      </image>
+      <caption>Shortcuts</caption>
+    </screenshot>
+    <screenshot>
+      <image>
+        https://raw.githubusercontent.com/sonnyp/Commit/main/data/screenshots/welcome.png
+      </image>
+      <caption>Welcome window</caption>
+    </screenshot>
+    <screenshot>
+      <image>
+        https://raw.githubusercontent.com/sonnyp/Commit/main/data/screenshots/resize.png
+      </image>
+      <caption>Resize the window to disable auto formatting</caption>
+    </screenshot>
+  </screenshots>
+  <content_rating type="oars-1.1" />
+  <releases>
+    <release version="4.6" date="2026-09-xx">
+      <description translate="no">
+        <ul>
+          <li>GNOME Platform 51</li>
+        </ul>
+      </description>
+    </release>
+    <release version="4.5" date="2026-01-11">
+      <description translate="no">
+        <ul>
+          <li>Add "Toggle Line Comment" shortcut</li>
+          <li>Fix type detection for XDG_CONFIG_HOME</li>
+        </ul>
+      </description>
+    </release>
+    <release version="4.4" date="2025-10-13">
+      <description translate="no">
+        <ul>
+          <li>Support XDG_CONFIG_HOME git config</li>
+          <li>GNOME Platform 49</li>
+        </ul>
+      </description>
+    </release>
+    <release version="4.3" date="2025-03-28">
+      <description translate="no">
+        <ul>
+          <li>GNOME Platform 48</li>
+        </ul>
+      </description>
+    </release>
+    <release version="4.2" date="2024-10-07">
+      <description translate="no">
+        <ul>
+          <li>Allow usage with repository on mounted disks</li>
+          <li>Fix display of repository name</li>
+          <li>Support per-repository configuration</li>
+          <li>Add setting for disabling title auto capitalization</li>
+          <li>GNOME Platform 47</li>
+        </ul>
+      </description>
+    </release>
+    <release version="4.1" date="2023-09-23">
+      <description translate="no">
+        <ul>
+          <li>Add spell check using libspelling</li>
+          <li>GNOME platform 45</li>
+        </ul>
+      </description>
+    </release>
+    <release version="4.0" date="2023-03-22">
+      <description translate="no">
+        <ul>
+          <li>GNOME platform 44</li>
+          <li>Ask for confirmation before dismissing changes</li>
+          <li>Show the name of the repository in the title bar</li>
+          <li>Prevent shortcut from saving empty commit (by axtloss)</li>
+          <li>Improve tooltips (by Felipe Kinoshita)</li>
+          <li>Design improvements</li>
+        </ul>
+      </description>
+    </release>
+    <release version="3.3.0" date="2022-07-21">
+      <description translate="no">
+        <ul>
+          <li>Add a theme switcher</li>
+          <li>Improve dark mode support</li>
+          <li>Support numpad enter</li>
+          <li>Add mnemonics for buttons</li>
+          <li>Fix capitalization when amending</li>
+        </ul>
+      </description>
+    </release>
+    <release version="3.2.0" date="2022-04-23">
+      <description translate="no">
+        <ul>
+          <li>Improve auto capitalization</li>
+          <li>Add support for gitconfig and hgrc</li>
+          <li>Support editing any file</li>
+          <li
+          >Make the primary button label dynamic (Tag, Rebase, Commit, ...)</li>
+          <li>Use 2 spaces indentation</li>
+          <li>Add menu button</li>
+          <li>GNOME Platform 42</li>
+          <li>Various fixes</li>
+        </ul>
+      </description>
+    </release>
+    <release version="3.1.0" date="2022-03-20">
+      <description translate="no">
+        <ul>
+          <li>Add keyboard shortcuts for moving lines up and down</li>
+          <li>Highlight syntax for Git, Mercurial, and diffs</li>
+          <li>Add a shortcuts window</li>
+          <li>Auto capitalize the commit title</li>
+          <li>Smart body wrapping</li>
+          <li>Various fixes</li>
+        </ul>
+      </description>
+    </release>
+    <release version="3.0.0" date="2021-10-14">
+      <description translate="no">
+        <ul>
+          <li>Remove spell check temporarily</li>
+          <li>Support undo and redo</li>
+          <li>Add symbolic icon</li>
+          <li>Add dark mode setting</li>
+          <li>Focus the text editor</li>
+          <li>Port to GTK 4 and libadwaita</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.2.0" date="2021-09-20">
+      <description translate="no">
+        <ul>
+          <li>Move preferences to welcome window</li>
+          <li>Only highlight text overflow on commits</li>
+          <li>New app icon</li>
+          <li>Remove double border</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.1.0" date="2021-05-16">
+      <description translate="no">
+        <ul>
+          <li>Add a Preferences window</li>
+          <li>Set default title length hint to 50 characters</li>
+          <li>Fix reading commits with special characters</li>
+          <li>Fix git rebase not recognized</li>
+          <li>Make windows bottom corners rounded</li>
+          <li>Add 6px margin to editor</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.0.0" date="2021-05-01">
+      <description translate="no">
+        <p>
+          Action required. After updating, please launch the application and
+          follow the instructions.
+        </p>
+        <ul>
+          <li>Show a welcome window when launched from desktop</li>
+          <li>Add support for Mercurial</li>
+          <li>Remove filesystem permission</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.0.0" date="2021-04-06">
+      <description translate="no">
+        <p>Initial release. Forked from Gnomit 2.0.</p>
+        <ul>
+          <li>Support "#" in commit message</li>
+          <li>Properly recognize executable path</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+  <kudos>
+    <kudo>HiDpiIcon</kudo>
+    <kudo>HighContrast</kudo>
+    <kudo>ModernToolkit</kudo>
+  </kudos>
+  <branding>
+    <color type="primary" scheme_preference="light">#99c1f1</color>
+    <color type="primary" scheme_preference="dark">#1a5fb4</color>
+  </branding>
+</component>

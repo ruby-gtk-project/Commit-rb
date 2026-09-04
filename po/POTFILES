@@ -1,0 +1,12 @@
+data/re.sonny.Commit.desktop
+data/re.sonny.Commit.gschema.xml
+data/re.sonny.Commit.metainfo.xml
+
+lib/commit/about.rb
+lib/commit/preference_rows.rb
+lib/commit/preferences.rb
+lib/commit/scm.rb
+lib/commit/shortcuts_dialog.rb
+lib/commit/theme_selector.rb
+lib/commit/welcome.rb
+lib/commit/window.rb

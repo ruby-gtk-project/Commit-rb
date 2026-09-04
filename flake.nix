@@ -16,8 +16,13 @@
             ruby_3_4
             bundler
             bundix
+            atk
             gtk4
             libadwaita
+            # No ruby gems exist for these two; they are loaded straight from
+            # their typelibs by GObjectIntrospection::Loader.
+            gtksourceview5
+            libspelling
             gobject-introspection
             glib
             cairo
@@ -26,12 +31,45 @@
             harfbuzz
             libyaml
             openssl
+
+            # The ruby-gnome extconfs resolve Requires.private out of the .pc
+            # files, so every private dependency of glib/cairo/pango/gtk needs
+            # its own .pc here or the gem fails to configure.
+            expat
+            freetype
+            fontconfig
+            fribidi
+            graphene
+            lerc
+            libdatrie
+            libdeflate
+            libepoxy
+            libpng
+            libpthread-stubs
+            libselinux
+            libsepol
+            libsysprof-capture
+            libthai
+            libwebp
+            libxkbcommon
+            libX11
+            libXau
+            libxcb
+            libXdmcp
+            libXext
+            libXrender
+            pcre2
+            pixman
+            util-linux
+            xz
+            zstd
           ];
 
           shellHook = ''
             export BUNDLE_PATH="$PWD/vendor/bundle"
             export BUNDLE_BUILD__GTK4="--use-system-libraries"
-            export GI_TYPELIB_PATH="${pkgs.gtk4}/lib/girepository-1.0:${pkgs.libadwaita}/lib/girepository-1.0''${GI_TYPELIB_PATH:+:$GI_TYPELIB_PATH}"
+            export GI_TYPELIB_PATH="${pkgs.gtk4}/lib/girepository-1.0:${pkgs.libadwaita}/lib/girepository-1.0:${pkgs.gtksourceview5}/lib/girepository-1.0:${pkgs.libspelling}/lib/girepository-1.0''${GI_TYPELIB_PATH:+:$GI_TYPELIB_PATH}"
+            export LD_LIBRARY_PATH="${pkgs.gtksourceview5}/lib:${pkgs.libspelling}/lib''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
           '';
         };
       }
