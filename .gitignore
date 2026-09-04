@@ -5,3 +5,8 @@ Gemfile.lock
 /tmp/
 /data/locale/
 /data/gschemas.compiled
+/vendor/cache/
+/flatpak/
+/repo/
+/.flatpak-builder/
+/Commit.flatpak

@@ -58,7 +58,17 @@ env -u DISPLAY -u WAYLAND_DISPLAY bundle exec ruby test/drive_welcome.rb
 env -u DISPLAY -u WAYLAND_DISPLAY bundle exec ruby test/drive_dev.rb
 ```
 
-`make test` runs all of that plus the metadata validation.
+`make test` runs all of that plus the appstream, desktop-file, msgfmt and
+flatpak-manifest validation.
+
+## Packaging
+
+```sh
+make install PREFIX=/usr/local   # lib/ and data/ under share/re.sonny.Commit
+make flatpak                     # build and install the flatpak
+make bundle                      # a single-file Commit.flatpak
+make manifest                    # regenerate re.sonny.Commit.json from Gemfile.lock
+```
 
 The `drive_` scripts run the app headlessly, click through it and write
 screenshots to `tmp/shots/`. They give themselves a temporary `HOME` and
@@ -89,10 +99,11 @@ The app itself is the same. What differs is underneath it:
   side under `$PREFIX/share/re.sonny.Commit` and drops a launcher in
   `$PREFIX/bin`. `make test` runs rubocop, the four test scripts, and the same
   appstream, desktop-file and msgfmt validation upstream's `make test` does.
-- **No flatpak manifest.** Upstream ships `re.sonny.Commit.json`. Building one
-  for this port means putting the whole ruby-gnome stack inside the runtime,
-  and nothing here can build or verify a flatpak, so there is no point
-  shipping a manifest that has never been run.
+- **The flatpak manifest carries a Ruby.** Upstream's `re.sonny.Commit.json`
+  builds one meson module against the GNOME SDK. This one builds Ruby, then
+  every gem — pinned by name and checksum, because a flatpak build has no
+  network — then the app. `make manifest` regenerates it from `Gemfile.lock`,
+  so adding a gem is one command rather than an editing job.
 
 ## Licence
 
