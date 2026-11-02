@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative "i18n"
 require_relative "wrap"
 
 module Commit
@@ -7,16 +8,22 @@ module Commit
   # kind of message a path holds, how to split the message from the comment
   # block, and how to put it back together on save.
   module Scm
+    # N_ marks a string for extraction without translating it here. These six
+    # labels are chosen by the parser but shown by the window, which is where
+    # they get run through _(); without N_ the msgids would never reach the
+    # catalogues at all.
+    extend Translations
+
     module_function
 
     # The label on the confirm button, per kind of message.
     ACTIONS = {
-      "commit" => "_Commit",
-      "hg"     => "_Commit",
-      "merge"  => "_Merge",
-      "tag"    => "_Tag",
-      "add -p" => "A_dd",
-      "rebase" => "_Rebase",
+      "commit" => N_("_Commit"),
+      "hg"     => N_("_Commit"),
+      "merge"  => N_("_Merge"),
+      "tag"    => N_("_Tag"),
+      "add -p" => N_("A_dd"),
+      "rebase" => N_("_Rebase"),
     }.freeze
 
     # Kinds whose body is prose we may reflow and capitalize. A rebase todo
@@ -77,7 +84,7 @@ module Commit
     end
 
     # The msgid only; the window translates it when it puts it on the button.
-    def action_for(type) = ACTIONS[type] || "_Save"
+    def action_for(type) = ACTIONS[type] || N_("_Save")
 
     def comment_prefix_for(type)
       if type == "hg"

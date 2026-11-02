@@ -220,11 +220,19 @@ welcome window). The port's `data/style.css` also carries the 52 lines of
 
 Upstream `po/` has 21 catalogues plus the `.pot`; the port carries all of them.
 
-**Gap:** the port's `po/POTFILES` lists `lib/commit/shortcuts_dialog.rb`,
-which does not exist — the file is `lib/commit/shortcuts_window.rb` — and it
-omits `data/shortcuts-window.ui` (11 translatable strings) and
-`data/theme-selector.ui` (6). Seventeen strings that upstream extracts are
-therefore not extracted here, and one listed file cannot be read at all.
-`lib/commit/application.rb`, `lib/commit/editor.rb` and
-`lib/commit/commit_editor.rb` are also absent from the list, matching
-upstream's inclusion of their counterparts.
+`po/POTFILES` names every file the port has strings in, and nothing it does
+not have: the three metadata files, `data/shortcuts-window.ui` (11
+translatable strings) and `data/theme-selector.ui` (6), and the six Ruby files
+that call gettext. `lib/commit/application.rb`, `lib/commit/editor.rb`,
+`lib/commit/commit_editor.rb`, `lib/commit/shortcuts_window.rb` and
+`lib/commit/theme_selector.rb` are absent because the port has no translatable
+strings in them — their upstream counterparts' strings live in the two `.ui`
+files and in `window.rb` here.
+
+The six confirm-button labels are the one case extraction cannot see on its
+own. Upstream calls `_()` on them where the `actions` table is declared in
+`src/scm.js`; the port's `Scm` returns the msgid and `Window` translates it at
+the point it goes on the button, so the table wraps each one in `N_()` to keep
+it extractable. `test/test_potfiles.rb` checks all of this — that every listed
+path exists, that no file carrying strings is left off, and that a real
+`rxgettext` run over the list still yields the six labels.

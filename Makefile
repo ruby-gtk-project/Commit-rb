@@ -18,6 +18,7 @@ test:
 	bundle exec rubocop
 	bundle exec ruby test/test_scm.rb
 	bundle exec ruby test/test_translations.rb
+	bundle exec ruby test/test_potfiles.rb
 	env -u DISPLAY -u WAYLAND_DISPLAY bundle exec ruby test/drive_editor.rb
 	env -u DISPLAY -u WAYLAND_DISPLAY bundle exec ruby test/drive_welcome.rb
 	env -u DISPLAY -u WAYLAND_DISPLAY bundle exec ruby test/drive_dev.rb

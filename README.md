@@ -53,6 +53,7 @@ ones. The theme choice is a GSetting.
 ```sh
 bundle exec ruby test/test_scm.rb          # message parsing, against the upstream fixtures
 bundle exec ruby test/test_translations.rb # the compiled catalogues
+bundle exec ruby test/test_potfiles.rb     # the extraction list behind the catalogues
 env -u DISPLAY -u WAYLAND_DISPLAY bundle exec ruby test/drive_editor.rb
 env -u DISPLAY -u WAYLAND_DISPLAY bundle exec ruby test/drive_welcome.rb
 env -u DISPLAY -u WAYLAND_DISPLAY bundle exec ruby test/drive_dev.rb
