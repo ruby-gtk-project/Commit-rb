@@ -218,7 +218,7 @@ welcome window). The port's `data/style.css` also carries the 52 lines of
 
 ## Translations
 
-Upstream `po/` has 21 catalogues plus the `.pot`; the port carries all of them.
+Upstream `po/` has 20 catalogues plus the `.pot`; the port carries all of them.
 
 `po/POTFILES` names every file the port has strings in, and nothing it does
 not have: the three metadata files, `data/shortcuts-window.ui` (11
