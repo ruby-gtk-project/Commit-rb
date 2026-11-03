@@ -108,8 +108,12 @@ module Commit
     end
 
     # https://git-scm.com/docs/git-config#FILES
-    def global_gitconfig_path
-      File.join(host_config_home, "git", "config").then do |xdg_path|
+    #
+    # Upstream's getGlobalGitconfig takes the config home as a default
+    # argument (src/git.js); so does this, for the same reason — it is the
+    # seam the parity test drives it through.
+    def global_gitconfig_path(config_home = host_config_home)
+      File.join(config_home, "git", "config").then do |xdg_path|
         if File.file?(xdg_path)
           xdg_path
         else
@@ -121,12 +125,23 @@ module Commit
     def local_gitconfig_path = File.join(Dir.pwd, ".gitconfig")
 
     # Under Flatpak, XDG_CONFIG_HOME points inside the sandbox, but the
-    # gitconfig we want to read is the host's.
-    def host_config_home
-      if sandboxed?
-        ENV["HOST_XDG_CONFIG_HOME"] || File.join(Dir.home, ".config")
-      else
-        ENV["XDG_CONFIG_HOME"] || File.join(Dir.home, ".config")
+    # gitconfig we want to read is the host's. Upstream's
+    # getHostConfigHomePath takes the sandbox check as a default argument
+    # (src/helpers.js); so does this.
+    def host_config_home(sandboxed = sandboxed?)
+      config_home_env(sandboxed ? "HOST_XDG_CONFIG_HOME" : "XDG_CONFIG_HOME") ||
+        File.join(Dir.home, ".config")
+    end
+
+    # A variable set to the empty string is as good as unset: GLib.getenv
+    # hands upstream a falsy value for both cases.
+    def config_home_env(name)
+      ENV.fetch(name, nil).to_s.then do |value|
+        if value.empty?
+          nil
+        else
+          value
+        end
       end
     end
 

@@ -38,6 +38,8 @@ module Commit
       ENV["GSETTINGS_SCHEMA_DIR"] = [data_dir, ENV.fetch("GSETTINGS_SCHEMA_DIR", nil)].compact.join(":")
     end
 
+    def schema_source = File.join(data_dir, "#{APPLICATION_ID}.gschema.xml")
+
     # An installed copy has its schema compiled already and its data
     # directory read-only, which is fine — only a checkout needs to build it.
     def compile_schemas!
@@ -49,17 +51,6 @@ module Commit
       )
     rescue StandardError => e
       warn("Could not compile the GSettings schema in #{data_dir}: #{e.message}")
-    end
-
-    def schema_source = File.join(data_dir, "#{APPLICATION_ID}.gschema.xml")
-
-    def compile_schemas!
-      system(
-        "glib-compile-schemas",
-        "--strict",
-        data_dir,
-        exception: true,
-      )
     end
   end
 end

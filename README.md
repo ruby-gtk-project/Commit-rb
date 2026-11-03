@@ -25,10 +25,10 @@ preferences, same twenty translations.
 ```sh
 direnv allow          # or: nix develop
 bundle install
-bundle exec ruby bin/commit path/to/COMMIT_EDITMSG
+bundle exec ruby exe/commit path/to/COMMIT_EDITMSG
 ```
 
-`bin/commit-dev` is the same app run as a development build — the windows get
+`exe/commit-dev` is the same app run as a development build — the windows get
 libadwaita's `devel` striping and `<Control><Shift>Q` restarts it in place,
 which is what upstream's `src/local.js` does. `make run` is that.
 
@@ -36,7 +36,7 @@ With no arguments you get the welcome window, which has the global preferences
 and the command that makes Commit your editor:
 
 ```sh
-git config --global core.editor "$PWD/bin/commit"
+git config --global core.editor "$PWD/exe/commit"
 ```
 
 `--readonly` runs the app without letting it write anything back, which is
@@ -54,6 +54,7 @@ ones. The theme choice is a GSetting.
 bundle exec ruby test/test_scm.rb          # message parsing, against the upstream fixtures
 bundle exec ruby test/test_translations.rb # the compiled catalogues
 bundle exec ruby test/test_potfiles.rb     # the extraction list behind the catalogues
+bundle exec ruby test/test_settings.rb     # where the two gitconfigs are looked up
 env -u DISPLAY -u WAYLAND_DISPLAY bundle exec ruby test/drive_editor.rb
 env -u DISPLAY -u WAYLAND_DISPLAY bundle exec ruby test/drive_welcome.rb
 env -u DISPLAY -u WAYLAND_DISPLAY bundle exec ruby test/drive_dev.rb

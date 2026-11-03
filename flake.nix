@@ -70,6 +70,12 @@
           ];
 
           shellHook = ''
+            # Both of these are pinned to the checkout on purpose. BUNDLE_PATH
+            # keeps the gems out of the user's home, and BUNDLE_GEMFILE keeps
+            # an ambient one — this tree sits beside sibling checkouts whose
+            # direnv exports their own — from pointing bundler at the wrong
+            # Gemfile, which resolves a bundle with no gtk4 in it.
+            export BUNDLE_GEMFILE="$PWD/Gemfile"
             export BUNDLE_PATH="$PWD/vendor/bundle"
             export BUNDLE_BUILD__GTK4="--use-system-libraries"
             export GI_TYPELIB_PATH="${pkgs.gtk4}/lib/girepository-1.0:${pkgs.libadwaita}/lib/girepository-1.0:${pkgs.gtksourceview5}/lib/girepository-1.0:${pkgs.libspelling}/lib/girepository-1.0''${GI_TYPELIB_PATH:+:$GI_TYPELIB_PATH}"

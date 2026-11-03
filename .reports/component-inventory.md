@@ -236,3 +236,30 @@ the point it goes on the button, so the table wraps each one in `N_()` to keep
 it extractable. `test/test_potfiles.rb` checks all of this — that every listed
 path exists, that no file carrying strings is left off, and that a real
 `rxgettext` run over the list still yields the six labels.
+
+## Tests
+
+Upstream has three test files, all against the `troll/tst` harness:
+`test/scm.test.js`, `test/wrap.test.js` and `test/helpers.test.js`. All three
+have a port counterpart now.
+
+| Upstream | Port |
+|---|---|
+| `test/scm.test.js` | `test/test_scm.rb` |
+| `test/wrap.test.js` | `test/test_scm.rb` (the `wrap` section) |
+| `test/helpers.test.js` | `test/test_settings.rb` |
+
+`test/helpers.test.js` covers `getHostConfigHomePath` and `isFile`, which
+upstream splits between `src/helpers.js` and `src/git.js`. The port keeps all
+of it in `Commit::Settings`, so `test/test_settings.rb` drives
+`host_config_home` through the same three cases and then exercises the
+upstream `isFile` trio — a file, a directory, a path that is not there — as
+the branch it exists to decide: `$XDG_CONFIG_HOME/git/config` or
+`~/.gitconfig`. Both methods take the thing they check as a default argument,
+exactly as their upstream counterparts do, and that is the seam the test uses.
+
+The port adds three files with no upstream counterpart:
+`test/test_translations.rb` and `test/test_potfiles.rb` cover the catalogues
+and the extraction list, and `test/gtk_driver.rb` plus the three
+`test/drive_*.rb` scripts run the real windows headlessly, which is what
+upstream's screenshot fixtures are for.

@@ -18,7 +18,14 @@ git_source(:gitlab) { |repo_name| "https://gitlab.com/#{repo_name}" }
 # Include dependencies from commit-rb.gemspec
 gemspec
 
-gem "kettle-family", "~> 1.3", ">= 1.3.37"
+# kettle-family 1.x requires Ruby >= 4.0, and the gemspec supports >= 3.4 — so
+# on the Ruby the dev shell pins, asking for it fails version solving for the
+# whole bundle, gtk4 and adwaita included, and nothing can be run at all. It is
+# release tooling, not a runtime dependency, so it joins the bundle only on a
+# Ruby that can have it.
+if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("4.0")
+  gem "kettle-family", "~> 1.3", ">= 1.3.37"
+end
 
 # Local workspace dependency wiring for *_local.gemfile overrides
 gem "nomono", "~> 1.1", ">= 1.1.17", require: false # ruby >= 3.2.0

@@ -12,13 +12,14 @@ LANGUAGES := $(notdir $(basename $(wildcard po/*.po)))
 
 # Run out of the checkout, as a development build.
 run:
-	bundle exec ruby bin/commit-dev
+	bundle exec ruby exe/commit-dev
 
 test:
 	bundle exec rubocop
 	bundle exec ruby test/test_scm.rb
 	bundle exec ruby test/test_translations.rb
 	bundle exec ruby test/test_potfiles.rb
+	bundle exec ruby test/test_settings.rb
 	env -u DISPLAY -u WAYLAND_DISPLAY bundle exec ruby test/drive_editor.rb
 	env -u DISPLAY -u WAYLAND_DISPLAY bundle exec ruby test/drive_welcome.rb
 	env -u DISPLAY -u WAYLAND_DISPLAY bundle exec ruby test/drive_dev.rb
@@ -33,8 +34,8 @@ install:
 	install -d $(PKGDIR)/lib $(PKGDIR)/data $(PKGDIR)/bin $(BINDIR)
 	cp -r lib/. $(PKGDIR)/lib/
 	cp -r data/. $(PKGDIR)/data/
-	install -m 755 bin/commit $(PKGDIR)/bin/commit
-	install -m 755 bin/commit-dev $(PKGDIR)/bin/commit-dev
+	install -m 755 exe/commit $(PKGDIR)/bin/commit
+	install -m 755 exe/commit-dev $(PKGDIR)/bin/commit-dev
 	glib-compile-schemas --strict $(PKGDIR)/data
 	for language in $(LANGUAGES); do \
 		install -d $(PKGDIR)/data/locale/$$language/LC_MESSAGES; \

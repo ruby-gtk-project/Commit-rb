@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Drives the app the way bin/commit-dev does — as a development build.
+# Drives the app the way exe/commit-dev does — as a development build.
 #
 #   env -u DISPLAY -u WAYLAND_DISPLAY bundle exec ruby test/drive_dev.rb
 
