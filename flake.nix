@@ -67,6 +67,15 @@
             util-linux
             xz
             zstd
+
+            # This machine has no display server at all, so the shell carries
+            # one it can start itself: `xvfb-run -a ruby ...` is how the app
+            # and the test/drive_*.rb scripts are run. GTK4 here has no
+            # offscreen backend — gtk_init fails outright with no display —
+            # so xvfb-run is not optional.
+            xvfb-run
+            # The spec runner the test suite under spec/ needs.
+            rubyPackages_3_4.rspec
           ];
 
           shellHook = ''
@@ -80,6 +89,7 @@
             export BUNDLE_BUILD__GTK4="--use-system-libraries"
             export GI_TYPELIB_PATH="${pkgs.gtk4}/lib/girepository-1.0:${pkgs.libadwaita}/lib/girepository-1.0:${pkgs.gtksourceview5}/lib/girepository-1.0:${pkgs.libspelling}/lib/girepository-1.0''${GI_TYPELIB_PATH:+:$GI_TYPELIB_PATH}"
             export LD_LIBRARY_PATH="${pkgs.gtksourceview5}/lib:${pkgs.libspelling}/lib''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+            export RUBYLIB="$PWD/lib''${RUBYLIB:+:$RUBYLIB}"
           '';
         };
       }
