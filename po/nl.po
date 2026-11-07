@@ -7,11 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: re.sonny.Commit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-21 11:19+0200\n"
+"POT-Creation-Date: 2026-11-07 00:00+0000\n"
 "PO-Revision-Date: 2023-04-05 19:50+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/commit/commit/nl/>"
-"\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/commit/commit/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,8 +23,7 @@ msgstr ""
 msgid "Commit"
 msgstr "Commit"
 
-#: data/re.sonny.Commit.desktop:5 data/re.sonny.Commit.metainfo.xml:10
-#: src/about.js:9
+#: data/re.sonny.Commit.desktop:5 data/re.sonny.Commit.metainfo.xml:10 src/about.js:9
 msgid "Commit message editor"
 msgstr "Bewerk commit­berichten"
 
@@ -291,36 +289,13 @@ msgstr "Ondersteuning voor ‘#’ in commit-berichten"
 msgid "Properly recognize executable path"
 msgstr "Duidelijk herkenbaar uitvoerbaar pad"
 
-#. TRANSLATORS: eg. 'Translator Name <your.email@domain.com>' or 'Translator Name https://website.example'
-#: src/about.js:18
-msgid "translator-credits"
-msgstr ""
-"Heimen Stoffels <vistausss@fastmail.com>\n"
-"Philip Goto https://flipflop97.github.io/"
+#: lib/commit/preference_rows.rb:42
+msgid "Title Maximum Length (in characters)"
+msgstr "Maximale titellengte (in tekens)"
 
-#: src/scm.js:5 src/scm.js:6
-msgid "_Commit"
-msgstr "_Committen"
-
-#: src/scm.js:7
-msgid "_Merge"
-msgstr "_Mergen"
-
-#: src/scm.js:8
-msgid "_Tag"
-msgstr "_Taggen"
-
-#: src/scm.js:9
-msgid "A_dd"
-msgstr "Toe_voegen"
-
-#: src/scm.js:10
-msgid "_Rebase"
-msgstr "_Rebasen"
-
-#: src/scm.js:14 src/window.ui:30
-msgid "_Save"
-msgstr "_Opslaan"
+#: lib/commit/preference_rows.rb:50
+msgid "Body Lines Maximum Length (in characters)"
+msgstr "Maximale omschrijvingslengte (in tekens)"
 
 #: src/ShortcutsWindow.ui:10
 msgid "Editing"
@@ -362,13 +337,36 @@ msgstr "Sneltoetsen"
 msgid "Quit"
 msgstr "Sluiten"
 
-#: src/window.ui:19
-msgid "_Abort"
-msgstr "_Afbreken"
+#. TRANSLATORS: eg. 'Translator Name <your.email@domain.com>' or 'Translator Name https://website.example'
+#: src/about.js:18
+msgid "translator-credits"
+msgstr ""
+"Heimen Stoffels <vistausss@fastmail.com>\n"
+"Philip Goto https://flipflop97.github.io/"
 
-#: src/window.ui:83 src/welcome.ui:184
-msgid "About Commit"
-msgstr "Over Commit"
+#: src/scm.js:5 src/scm.js:6
+msgid "_Commit"
+msgstr "_Committen"
+
+#: src/scm.js:7
+msgid "_Merge"
+msgstr "_Mergen"
+
+#: src/scm.js:8
+msgid "_Tag"
+msgstr "_Taggen"
+
+#: src/scm.js:9
+msgid "A_dd"
+msgstr "Toe_voegen"
+
+#: src/scm.js:10
+msgid "_Rebase"
+msgstr "_Rebasen"
+
+#: src/scm.js:14 src/window.ui:30
+msgid "_Save"
+msgstr "_Opslaan"
 
 #: src/welcome.ui:28
 msgid "Preferences"
@@ -407,62 +405,49 @@ msgstr "Stel het volgende in in uw <tt>hgrc</tt> om Commit in te stellen als sta
 msgid "https://www.mercurial-scm.org/wiki/editor"
 msgstr "https://www.mercurial-scm.org/wiki/editor"
 
+#: src/welcome.ui:184 src/window.ui:83
+msgid "About Commit"
+msgstr "Over Commit"
+
+#: src/window.ui:19
+msgid "_Abort"
+msgstr "_Afbreken"
+
 #~ msgid "Use dark mode"
 #~ msgstr "Donker thema gebruiken"
-
-#, fuzzy
 #~ msgid "Main window - dark mode"
 #~ msgstr "Hoofdvenster - donker thema"
-
-#, fuzzy
 #~ msgid "Welcome window - dark mode"
 #~ msgstr "Welkomstvenster - donker thema"
-
-#, fuzzy
 #~ msgid "Support multiple comments"
 #~ msgstr "Ondersteunt Mercurial-commitberichten"
-
 #~ msgid "Message title length hint"
 #~ msgstr "Lengtemelding bij berichten"
-
 #~ msgid "Highlights overflow of title when it exceeds 50 characters (customizable)"
 #~ msgstr "Geeft aan als het bericht meer dan 50 tekens bevat (instelbaar)"
-
 #~ msgid "Translate to French"
 #~ msgstr "Nieuw: Franse vertaling"
-
 #~ msgid "Translate to Croatian"
 #~ msgstr "Nieuw: Kroatische vertaling"
-
 #~ msgid "Translate to German"
 #~ msgstr "Nieuw: Duitse vertaling"
-
 #~ msgid "Translate to Russian"
 #~ msgstr "Nieuw: Russische vertaling"
-
 #~ msgid "Translate to Dutch"
 #~ msgstr "Nieuw: Nederlandse vertaling"
-
 #~ msgid "Translate to Brazilien Portguese"
 #~ msgstr "Nieuw: Braziliaans-Portugese vertaling"
-
 #~ msgid "Add Czech translation"
 #~ msgstr "Nieuw: Tsjechische vertaling"
-
 #~ msgid "Add Spanish translation"
 #~ msgstr "Nieuw: Spaanse vertaling"
-
 #~ msgid "Cancel"
 #~ msgstr "Annuleren"
-
 #~ msgid "Spell checking"
 #~ msgstr "Spellingcontrole"
-
 #~ msgid "Dark theme support: the overflow highlight is adjusted according to your theme"
 #~ msgstr "Ondersteuning voor donkere thema's: markeringen maken gebruik van de themakleuren"
-
 #~ msgid "Shows a welcome window when launched from desktop"
 #~ msgstr "Toont een welkomstvenster na de eerste opstart"
-
 #~ msgid "⚠️ Action required. After updating, please launch the application and follow the instructions."
 #~ msgstr "⚠️ LET OP: open na het bijwerken een nieuw venster en volg de instructies."

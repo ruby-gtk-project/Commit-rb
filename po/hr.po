@@ -7,15 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: re.sonny.Commit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-21 11:19+0200\n"
+"POT-Creation-Date: 2026-11-07 00:00+0000\n"
 "PO-Revision-Date: 2022-07-28 18:20+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
-"Language-Team: Croatian <https://hosted.weblate.org/projects/commit/commit/hr/>\n"
+"Language-Team: Croatian <https://hosted.weblate.org/projects/commit/commit/hr/"
+">\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4"
+" && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 4.14-dev\n"
 
 #. TRANSLATORS: Don't translate
@@ -23,8 +25,7 @@ msgstr ""
 msgid "Commit"
 msgstr "Commit"
 
-#: data/re.sonny.Commit.desktop:5 data/re.sonny.Commit.metainfo.xml:10
-#: src/about.js:9
+#: data/re.sonny.Commit.desktop:5 data/re.sonny.Commit.metainfo.xml:10 src/about.js:9
 msgid "Commit message editor"
 msgstr "Uređivač commit poruka"
 
@@ -290,34 +291,13 @@ msgstr "Podrška za „#” u commit poruci"
 msgid "Properly recognize executable path"
 msgstr "Ispravno prepoznavanje staze do izvršne datoteke"
 
-#. TRANSLATORS: eg. 'Translator Name <your.email@domain.com>' or 'Translator Name https://website.example'
-#: src/about.js:18
-msgid "translator-credits"
-msgstr "Milo Ivir <mail@milotype.de>"
+#: lib/commit/preference_rows.rb:42
+msgid "Title Maximum Length (in characters)"
+msgstr "Maksimalna duljina naslova (broj znakova)"
 
-#: src/scm.js:5 src/scm.js:6
-msgid "_Commit"
-msgstr "_Commit"
-
-#: src/scm.js:7
-msgid "_Merge"
-msgstr "S_jedini"
-
-#: src/scm.js:8
-msgid "_Tag"
-msgstr "_Označi"
-
-#: src/scm.js:9
-msgid "A_dd"
-msgstr "_Dodaj"
-
-#: src/scm.js:10
-msgid "_Rebase"
-msgstr "_Presloži"
-
-#: src/scm.js:14 src/window.ui:30
-msgid "_Save"
-msgstr "_Spremi"
+#: lib/commit/preference_rows.rb:50
+msgid "Body Lines Maximum Length (in characters)"
+msgstr "Maksimalna duljina redaka teksta (broj znakova)"
 
 #: src/ShortcutsWindow.ui:10
 msgid "Editing"
@@ -359,13 +339,34 @@ msgstr "Tipkovni prečaci"
 msgid "Quit"
 msgstr "Zatvori program"
 
-#: src/window.ui:19
-msgid "_Abort"
-msgstr "_Prekini"
+#. TRANSLATORS: eg. 'Translator Name <your.email@domain.com>' or 'Translator Name https://website.example'
+#: src/about.js:18
+msgid "translator-credits"
+msgstr "Milo Ivir <mail@milotype.de>"
 
-#: src/window.ui:83 src/welcome.ui:184
-msgid "About Commit"
-msgstr "O programu Commit"
+#: src/scm.js:5 src/scm.js:6
+msgid "_Commit"
+msgstr "_Commit"
+
+#: src/scm.js:7
+msgid "_Merge"
+msgstr "S_jedini"
+
+#: src/scm.js:8
+msgid "_Tag"
+msgstr "_Označi"
+
+#: src/scm.js:9
+msgid "A_dd"
+msgstr "_Dodaj"
+
+#: src/scm.js:10
+msgid "_Rebase"
+msgstr "_Presloži"
+
+#: src/scm.js:14 src/window.ui:30
+msgid "_Save"
+msgstr "_Spremi"
 
 #: src/welcome.ui:28
 msgid "Preferences"
@@ -404,51 +405,43 @@ msgstr "Za postavljanje Commita kao standardnog uređivača za Mercurial, postav
 msgid "https://www.mercurial-scm.org/wiki/editor"
 msgstr "https://www.mercurial-scm.org/wiki/editor"
 
+#: src/welcome.ui:184 src/window.ui:83
+msgid "About Commit"
+msgstr "O programu Commit"
+
+#: src/window.ui:19
+msgid "_Abort"
+msgstr "_Prekini"
+
 #~ msgid "Use dark mode"
 #~ msgstr "Koristi tamni modus"
-
 #~ msgid "Tag"
 #~ msgstr "Oznaka"
-
 #~ msgid "Add"
 #~ msgstr "Dodaj"
-
 #~ msgid "Merge"
 #~ msgstr "Sjedini"
-
 #~ msgid "Rebase"
 #~ msgstr "Presloži"
-
 #~ msgid "Save"
 #~ msgstr "Spremi"
-
 #~ msgid "Abort"
 #~ msgstr "Prekini"
-
 #~ msgid "Main window - dark mode"
 #~ msgstr "Glavni prozor – tamni modus"
-
 #~ msgid "Welcome window - dark mode"
 #~ msgstr "Uvodni prozor – tamni modus"
-
-#, fuzzy
 #~ msgid "Support multiple comments"
 #~ msgstr "Podrška za Mercurial commit poruke"
-
 #~ msgid "Message title length hint"
 #~ msgstr "Savjet za duljinu naslova poruke"
-
 #~ msgid "Cancel"
 #~ msgstr "Odustani"
-
 #~ msgid "Spell checking"
 #~ msgstr "Provjera pravopisa"
-
 #~ msgid "Dark theme support: the overflow highlight is adjusted according to your theme"
 #~ msgstr "Podrška za tamnu temu: označavanje predugačkog teksta prilagođava se tvojoj temi"
-
 #~ msgid "Shows a welcome window when launched from desktop"
 #~ msgstr "Prikaz uvodnog prozora pri pokretanju s radne površine"
-
 #~ msgid "⚠️ Action required. After updating, please launch the application and follow the instructions."
 #~ msgstr "⚠️ Zahtijeva radnju. Nakon aktualiziranja pokreni program i slijedi upute."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: re.sonny.Commit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-21 11:19+0200\n"
+"POT-Creation-Date: 2026-11-07 00:00+0000\n"
 "PO-Revision-Date: 2023-02-17 15:38+0000\n"
 "Last-Translator: Leo <leomerh96@outlook.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/commit/commit/de/>\n"
@@ -23,8 +23,7 @@ msgstr ""
 msgid "Commit"
 msgstr "Commit"
 
-#: data/re.sonny.Commit.desktop:5 data/re.sonny.Commit.metainfo.xml:10
-#: src/about.js:9
+#: data/re.sonny.Commit.desktop:5 data/re.sonny.Commit.metainfo.xml:10 src/about.js:9
 msgid "Commit message editor"
 msgstr "Commit Nachrichteneditor"
 
@@ -290,34 +289,13 @@ msgstr "Unterstützung für „#“ in der Commit-Nachricht"
 msgid "Properly recognize executable path"
 msgstr "Korrektes Erkennen des Pfades der ausführbaren Datei"
 
-#. TRANSLATORS: eg. 'Translator Name <your.email@domain.com>' or 'Translator Name https://website.example'
-#: src/about.js:18
-msgid "translator-credits"
-msgstr "translator-credits"
+#: lib/commit/preference_rows.rb:42
+msgid "Title Maximum Length (in characters)"
+msgstr "Maximale Titellänge (in Zeichen)"
 
-#: src/scm.js:5 src/scm.js:6
-msgid "_Commit"
-msgstr "_Commit"
-
-#: src/scm.js:7
-msgid "_Merge"
-msgstr "Zusa_mmenführen"
-
-#: src/scm.js:8
-msgid "_Tag"
-msgstr "_Markieren"
-
-#: src/scm.js:9
-msgid "A_dd"
-msgstr "_Hinzufügen"
-
-#: src/scm.js:10
-msgid "_Rebase"
-msgstr "_Neubasieren"
-
-#: src/scm.js:14 src/window.ui:30
-msgid "_Save"
-msgstr "_Speichern"
+#: lib/commit/preference_rows.rb:50
+msgid "Body Lines Maximum Length (in characters)"
+msgstr "Maximale Textlänge (in Zeichen)"
 
 #: src/ShortcutsWindow.ui:10
 msgid "Editing"
@@ -359,13 +337,34 @@ msgstr "Tastaturkurzbefehle"
 msgid "Quit"
 msgstr "Beenden"
 
-#: src/window.ui:19
-msgid "_Abort"
-msgstr "_Abbrechen"
+#. TRANSLATORS: eg. 'Translator Name <your.email@domain.com>' or 'Translator Name https://website.example'
+#: src/about.js:18
+msgid "translator-credits"
+msgstr "translator-credits"
 
-#: src/window.ui:83 src/welcome.ui:184
-msgid "About Commit"
-msgstr "Über Commit"
+#: src/scm.js:5 src/scm.js:6
+msgid "_Commit"
+msgstr "_Commit"
+
+#: src/scm.js:7
+msgid "_Merge"
+msgstr "Zusa_mmenführen"
+
+#: src/scm.js:8
+msgid "_Tag"
+msgstr "_Markieren"
+
+#: src/scm.js:9
+msgid "A_dd"
+msgstr "_Hinzufügen"
+
+#: src/scm.js:10
+msgid "_Rebase"
+msgstr "_Neubasieren"
+
+#: src/scm.js:14 src/window.ui:30
+msgid "_Save"
+msgstr "_Speichern"
 
 #: src/welcome.ui:28
 msgid "Preferences"
@@ -404,35 +403,31 @@ msgstr "Um Commit als Standardeditor für Mercurial festzulegen, Folgendes im ei
 msgid "https://www.mercurial-scm.org/wiki/editor"
 msgstr "https://www.mercurial-scm.org/wiki/editor"
 
+#: src/welcome.ui:184 src/window.ui:83
+msgid "About Commit"
+msgstr "Über Commit"
+
+#: src/window.ui:19
+msgid "_Abort"
+msgstr "_Abbrechen"
+
 #~ msgid "Use dark mode"
 #~ msgstr "Verwende dunkle Oberfläche"
-
-#, fuzzy
 #~ msgid "Main window - dark mode"
 #~ msgstr "Commit Hauptfenster – dunkle Arbeitsumgebung"
-
-#, fuzzy
 #~ msgid "Welcome window - dark mode"
 #~ msgstr "Commit Willkommensfenster – dunkle Arbeitsumgebung"
-
 #~ msgid "Message title length hint"
 #~ msgstr "Hinweis zur Länge des Nachrichtentitels"
-
 #~ msgid "Cancel"
 #~ msgstr "Abbrechen"
-
 #~ msgid "Spell checking"
 #~ msgstr "Rechtschreibprüfung"
-
 #~ msgid "Dark theme support: the overflow highlight is adjusted according to your theme"
 #~ msgstr "Unterstützung dunkler Arbeitsumgebung: Zu langer Text wird entsprechend Deiner Arbeitsumgebung hervorgehoben"
-
 #~ msgid "Shows a welcome window when launched from desktop"
 #~ msgstr "Zeigt beim Start vom Desktop ein Willkommensfenster an"
-
-#, fuzzy
 #~ msgid "Support multiple comments"
 #~ msgstr "Untrestüzt Mercurial commit Nachrichten"
-
 #~ msgid "⚠️ Action required. After updating, please launch the application and follow the instructions."
 #~ msgstr "⚠️ Aktion erforderlich. Anwendong nach der Aktualisierung neu starten und den Anweisungen folgen."

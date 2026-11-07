@@ -8,17 +8,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: re.sonny.Commit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-21 11:19+0200\n"
+"POT-Creation-Date: 2026-11-07 00:00+0000\n"
 "PO-Revision-Date: 2023-04-16 23:51+0000\n"
 "Last-Translator: Daudix UFO <ddaudix@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/commit/commit/ru/"
-">\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/commit/commit/ru/>"
+"\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4"
+" && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 4.17-dev\n"
 
 #. TRANSLATORS: Don't translate
@@ -26,8 +26,7 @@ msgstr ""
 msgid "Commit"
 msgstr "Commit"
 
-#: data/re.sonny.Commit.desktop:5 data/re.sonny.Commit.metainfo.xml:10
-#: src/about.js:9
+#: data/re.sonny.Commit.desktop:5 data/re.sonny.Commit.metainfo.xml:10 src/about.js:9
 msgid "Commit message editor"
 msgstr "Редактор сообщений коммитов"
 
@@ -45,26 +44,15 @@ msgid "Body lines maximum length (in characters)"
 msgstr "Максимальная длина линий (в символах)"
 
 #: data/re.sonny.Commit.metainfo.xml:13
-msgid ""
-"Commit is an editor that helps you write better Git and Mercurial commit "
-"messages."
-msgstr ""
-"Commit - это редактор, который поможет вам лучше писать сообщения коммитов "
-"Git и Mercurial."
+msgid "Commit is an editor that helps you write better Git and Mercurial commit messages."
+msgstr "Commit - это редактор, который поможет вам лучше писать сообщения коммитов Git и Mercurial."
 
 #: data/re.sonny.Commit.metainfo.xml:17
-msgid ""
-"After installing make sure to launch the application and follow the "
-"instructions."
-msgstr ""
-"После установки обязательно запустите приложение и следуйте инструкциям."
+msgid "After installing make sure to launch the application and follow the instructions."
+msgstr "После установки обязательно запустите приложение и следуйте инструкциям."
 
 #: data/re.sonny.Commit.metainfo.xml:21
-msgid ""
-"Commit will pop up automatically when you make a commit in one of your "
-"projects. To save your commit message, press the Commit button or the "
-"<code>Ctrl+Return</code> shortcut. To abort and dismiss Commit, press the "
-"Abort button or the <code>Escape</code> key."
+msgid "Commit will pop up automatically when you make a commit in one of your projects. To save your commit message, press the Commit button or the <code>Ctrl+Return</code> shortcut. To abort and dismiss Commit, press the Abort button or the <code>Escape</code> key."
 msgstr "Commit появится автоматически, когда вы сделаете коммит в одном из ваших проектов. Чтобы сохранить сообщение фиксации, нажмите кнопку фиксации или сочетание клавиш <code>Ctrl+Return</code>. Чтобы прервать и закрыть фиксацию, нажмите кнопку «Прервать» или клавишу <code>Escape</code>."
 
 #: data/re.sonny.Commit.metainfo.xml:28
@@ -86,8 +74,7 @@ msgstr "Вставляет пустую строку между заголовк
 #. <li>Spell checking</li>
 #: data/re.sonny.Commit.metainfo.xml:34
 msgid "Comments are readonly and excluded from \"Select All\""
-msgstr ""
-"Комментарии доступны только для чтения и исключаются из \"Выбрать все\""
+msgstr "Комментарии доступны только для чтения и исключаются из \"Выбрать все\""
 
 #: data/re.sonny.Commit.metainfo.xml:35
 msgid "Displays project folder and branch in window header"
@@ -110,8 +97,7 @@ msgid "Emoji picker"
 msgstr "Эмодзи сборщик"
 
 #: data/re.sonny.Commit.metainfo.xml:41
-msgid ""
-"Supports git commit, merge, tag --annotate, add --patch, rebase --interactive"
+msgid "Supports git commit, merge, tag --annotate, add --patch, rebase --interactive"
 msgstr "Поддерживает команды git commit, merge, tag --annotate, add --patch, rebase --interactive"
 
 #: data/re.sonny.Commit.metainfo.xml:42
@@ -279,9 +265,7 @@ msgid "Add 6px margin to editor"
 msgstr "Добавлено поле 6px в редактор"
 
 #: data/re.sonny.Commit.metainfo.xml:160
-msgid ""
-"Action required. After updating, please launch the application and follow "
-"the instructions."
+msgid "Action required. After updating, please launch the application and follow the instructions."
 msgstr "Необходимое действие. После обновления запустите приложение и следуйте инструкциям."
 
 #: data/re.sonny.Commit.metainfo.xml:165
@@ -308,34 +292,13 @@ msgstr "Добавлена поддержка \"#\" в сообщении ком
 msgid "Properly recognize executable path"
 msgstr "Правильно распознан исполняемый путь"
 
-#. TRANSLATORS: eg. 'Translator Name <your.email@domain.com>' or 'Translator Name https://website.example'
-#: src/about.js:18
-msgid "translator-credits"
-msgstr "BigmenPixel https://github.com/BigmenPixel0"
+#: lib/commit/preference_rows.rb:42
+msgid "Title Maximum Length (in characters)"
+msgstr "Максимальная длина заголовка (в символах)"
 
-#: src/scm.js:5 src/scm.js:6
-msgid "_Commit"
-msgstr "_Commit"
-
-#: src/scm.js:7
-msgid "_Merge"
-msgstr "_Merge"
-
-#: src/scm.js:8
-msgid "_Tag"
-msgstr "_Tag"
-
-#: src/scm.js:9
-msgid "A_dd"
-msgstr "A_dd"
-
-#: src/scm.js:10
-msgid "_Rebase"
-msgstr "_Rebase"
-
-#: src/scm.js:14 src/window.ui:30
-msgid "_Save"
-msgstr "_Сохранить"
+#: lib/commit/preference_rows.rb:50
+msgid "Body Lines Maximum Length (in characters)"
+msgstr "Максимальная длина линий (в символах)"
 
 #: src/ShortcutsWindow.ui:10
 msgid "Editing"
@@ -377,13 +340,34 @@ msgstr "Горячие клавиши"
 msgid "Quit"
 msgstr "Выйти"
 
-#: src/window.ui:19
-msgid "_Abort"
-msgstr "_Отменить"
+#. TRANSLATORS: eg. 'Translator Name <your.email@domain.com>' or 'Translator Name https://website.example'
+#: src/about.js:18
+msgid "translator-credits"
+msgstr "BigmenPixel https://github.com/BigmenPixel0"
 
-#: src/window.ui:83 src/welcome.ui:184
-msgid "About Commit"
-msgstr "О приложении"
+#: src/scm.js:5 src/scm.js:6
+msgid "_Commit"
+msgstr "_Commit"
+
+#: src/scm.js:7
+msgid "_Merge"
+msgstr "_Merge"
+
+#: src/scm.js:8
+msgid "_Tag"
+msgstr "_Tag"
+
+#: src/scm.js:9
+msgid "A_dd"
+msgstr "A_dd"
+
+#: src/scm.js:10
+msgid "_Rebase"
+msgstr "_Rebase"
+
+#: src/scm.js:14 src/window.ui:30
+msgid "_Save"
+msgstr "_Сохранить"
 
 #: src/welcome.ui:28
 msgid "Preferences"
@@ -394,11 +378,8 @@ msgid "Git"
 msgstr "Git"
 
 #: src/welcome.ui:73
-msgid ""
-"To set Commit as default editor for Git run the following command in Terminal"
-msgstr ""
-"Чтобы установить Commit в качестве редактора по умолчанию для Git, выполните "
-"следующую команду в Терминале"
+msgid "To set Commit as default editor for Git run the following command in Terminal"
+msgstr "Чтобы установить Commit в качестве редактора по умолчанию для Git, выполните следующую команду в Терминале"
 
 #: src/welcome.ui:100 src/welcome.ui:155
 msgid "Copy to Clipboard"
@@ -409,10 +390,8 @@ msgid "Documentation"
 msgstr "Документация"
 
 #: src/welcome.ui:112
-msgid ""
-"https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration#_core_editor"
-msgstr ""
-"https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration#_core_editor"
+msgid "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration#_core_editor"
+msgstr "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration#_core_editor"
 
 #: src/welcome.ui:123
 msgid "Mercurial"
@@ -420,48 +399,41 @@ msgstr "Mercurial"
 
 #. TRANSLATORS: Don't translate <tt>hgrc</tt>
 #: src/welcome.ui:128
-msgid ""
-"To set Commit as default editor for Mercurial, set the following in your "
-"<tt>hgrc</tt>"
-msgstr ""
-"Чтобы установить Commit в качестве редактора по умолчанию для Mercurial, "
-"установите следующее в вашем <tt>hgrc</tt>"
+msgid "To set Commit as default editor for Mercurial, set the following in your <tt>hgrc</tt>"
+msgstr "Чтобы установить Commit в качестве редактора по умолчанию для Mercurial, установите следующее в вашем <tt>hgrc</tt>"
 
 #: src/welcome.ui:167
 msgid "https://www.mercurial-scm.org/wiki/editor"
 msgstr "https://www.mercurial-scm.org/wiki/editor"
 
-#, fuzzy
+#: src/welcome.ui:184 src/window.ui:83
+msgid "About Commit"
+msgstr "О приложении"
+
+#: src/window.ui:19
+msgid "_Abort"
+msgstr "_Отменить"
+
 #~ msgid "Main window - dark mode"
 #~ msgstr "Главное окно Commit - темная тема"
-
-#, fuzzy
 #~ msgid "Welcome window - dark mode"
 #~ msgstr "Приветственное окно Commit - темная тема"
-
 #~ msgid "Message title length hint"
 #~ msgstr "Подсказка по длине заголовка сообщения"
-
 #~ msgid "Cancel"
 #~ msgstr "Отменить"
-
 #~ msgid "Spell checking"
 #~ msgstr "Проверяет орфографию"
-
 #~ msgid ""
 #~ "Dark theme support: the overflow highlight is adjusted according to your "
 #~ "theme"
 #~ msgstr ""
 #~ "Поддерживает темную тему: выделение переполнения настраивается в "
 #~ "соответствии с вашей темой"
-
 #~ msgid "Shows a welcome window when launched from desktop"
 #~ msgstr "Теперь показывается окно приветствия при запуске с рабочего стола"
-
-#, fuzzy
 #~ msgid "Support multiple comments"
 #~ msgstr "Поддерживает сообщения коммитов Mercurial"
-
 #~ msgid ""
 #~ "⚠️ Action required. After updating, please launch the application and "
 #~ "follow the instructions."

@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: re.sonny.Commit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-21 11:19+0200\n"
+"POT-Creation-Date: 2026-11-07 00:00+0000\n"
 "PO-Revision-Date: 2022-10-24 17:40+0000\n"
 "Last-Translator: Patrícia Matos <patriciamatos85@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/commit/commit/pt_BR/>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/commit"
+"/commit/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,8 +25,7 @@ msgstr ""
 msgid "Commit"
 msgstr "Commit"
 
-#: data/re.sonny.Commit.desktop:5 data/re.sonny.Commit.metainfo.xml:10
-#: src/about.js:9
+#: data/re.sonny.Commit.desktop:5 data/re.sonny.Commit.metainfo.xml:10 src/about.js:9
 msgid "Commit message editor"
 msgstr "Editor de mensagens de commit"
 
@@ -294,35 +294,13 @@ msgstr "Suporte a “#” na mensagem de commit"
 msgid "Properly recognize executable path"
 msgstr "Reconhece adequadamente o caminho do executável"
 
-#. TRANSLATORS: eg. 'Translator Name <your.email@domain.com>' or 'Translator Name https://website.example'
-#: src/about.js:18
-msgid "translator-credits"
-msgstr "Rafael Fontenelle <rafaelff@gnome.org>"
+#: lib/commit/preference_rows.rb:42
+msgid "Title Maximum Length (in characters)"
+msgstr "Comprimento máximo do título (em caracteres)"
 
-#: src/scm.js:5 src/scm.js:6
-#, fuzzy
-msgid "_Commit"
-msgstr "Commit"
-
-#: src/scm.js:7
-msgid "_Merge"
-msgstr ""
-
-#: src/scm.js:8
-msgid "_Tag"
-msgstr ""
-
-#: src/scm.js:9
-msgid "A_dd"
-msgstr ""
-
-#: src/scm.js:10
-msgid "_Rebase"
-msgstr ""
-
-#: src/scm.js:14 src/window.ui:30
-msgid "_Save"
-msgstr ""
+#: lib/commit/preference_rows.rb:50
+msgid "Body Lines Maximum Length (in characters)"
+msgstr "Comprimento máximo das linhas do corpo (em caracteres)"
 
 #: src/ShortcutsWindow.ui:10
 msgid "Editing"
@@ -364,14 +342,35 @@ msgstr "Atalhos de teclado"
 msgid "Quit"
 msgstr "Sair"
 
-#: src/window.ui:19
-#, fuzzy
-msgid "_Abort"
-msgstr "Abortar"
+#. TRANSLATORS: eg. 'Translator Name <your.email@domain.com>' or 'Translator Name https://website.example'
+#: src/about.js:18
+msgid "translator-credits"
+msgstr "Rafael Fontenelle <rafaelff@gnome.org>"
 
-#: src/window.ui:83 src/welcome.ui:184
-msgid "About Commit"
-msgstr "Sobre o Commit"
+#: src/scm.js:5 src/scm.js:6
+#, fuzzy
+msgid "_Commit"
+msgstr "Commit"
+
+#: src/scm.js:7
+msgid "_Merge"
+msgstr ""
+
+#: src/scm.js:8
+msgid "_Tag"
+msgstr ""
+
+#: src/scm.js:9
+msgid "A_dd"
+msgstr ""
+
+#: src/scm.js:10
+msgid "_Rebase"
+msgstr ""
+
+#: src/scm.js:14 src/window.ui:30
+msgid "_Save"
+msgstr ""
 
 #: src/welcome.ui:28
 msgid "Preferences"
@@ -410,36 +409,34 @@ msgstr "Para definir Commit como o editor padrão para Mercurial, defina o segui
 msgid "https://www.mercurial-scm.org/wiki/editor"
 msgstr "https://www.mercurial-scm.org/wiki/editor"
 
+#: src/welcome.ui:184 src/window.ui:83
+msgid "About Commit"
+msgstr "Sobre o Commit"
+
+#: src/window.ui:19
+#, fuzzy
+msgid "_Abort"
+msgstr "Abortar"
+
 #~ msgid "Use dark mode"
 #~ msgstr "Usar modo escuro"
-
 #~ msgid "Abort"
 #~ msgstr "Abortar"
-
 #~ msgid "Main window - dark mode"
 #~ msgstr "Janela principal - modo escuro"
-
 #~ msgid "Welcome window - dark mode"
 #~ msgstr "Janela de boas-vindas - modo escuro"
-
-#, fuzzy
 #~ msgid "Support multiple comments"
 #~ msgstr "Tem suporte a mensagens de commit do Mercurial"
-
 #~ msgid "Message title length hint"
 #~ msgstr "Sugestão de cumprimento do título da mensagem"
-
 #~ msgid "Cancel"
 #~ msgstr "Cancelar"
-
 #~ msgid "Spell checking"
 #~ msgstr "Verificação ortográfica"
-
 #~ msgid "Dark theme support: the overflow highlight is adjusted according to your theme"
 #~ msgstr "Tem suporte a tema escuro: o realce de estouro é ajustado conforme seu tema"
-
 #~ msgid "Shows a welcome window when launched from desktop"
 #~ msgstr "Mostra uma janela de boas-vindas quando iniciado do desktop"
-
 #~ msgid "⚠️ Action required. After updating, please launch the application and follow the instructions."
 #~ msgstr "⚠️ Ação necessária. Após atualizar, inicie o aplicativo e siga as instruções."

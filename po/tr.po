@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: re.sonny.Commit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-21 11:19+0200\n"
+"POT-Creation-Date: 2026-11-07 00:00+0000\n"
 "PO-Revision-Date: 2023-08-21 23:53+0000\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/commit/commit/tr/"
-">\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/commit/commit/tr/>"
+"\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,8 +24,7 @@ msgstr ""
 msgid "Commit"
 msgstr "Commit"
 
-#: data/re.sonny.Commit.desktop:5 data/re.sonny.Commit.metainfo.xml:10
-#: src/about.js:9
+#: data/re.sonny.Commit.desktop:5 data/re.sonny.Commit.metainfo.xml:10 src/about.js:9
 msgid "Commit message editor"
 msgstr "Commit metin düzenleyici"
 
@@ -43,23 +42,15 @@ msgid "Body lines maximum length (in characters)"
 msgstr "Maksimum body satırı uzunluğu (karakter sayısı olarak)"
 
 #: data/re.sonny.Commit.metainfo.xml:13
-msgid ""
-"Commit is an editor that helps you write better Git and Mercurial commit "
-"messages."
+msgid "Commit is an editor that helps you write better Git and Mercurial commit messages."
 msgstr "Commit, daha iyi Git ve Mercurial commit mesajları yazmanıza yardımcı olan bir düzenleyicidir."
 
 #: data/re.sonny.Commit.metainfo.xml:17
-msgid ""
-"After installing make sure to launch the application and follow the "
-"instructions."
+msgid "After installing make sure to launch the application and follow the instructions."
 msgstr "Kurulum tamamlandıktan sonra uygulamayı açıp talimatları izlediğinizden emin olun."
 
 #: data/re.sonny.Commit.metainfo.xml:21
-msgid ""
-"Commit will pop up automatically when you make a commit in one of your "
-"projects. To save your commit message, press the Commit button or the "
-"<code>Ctrl+Return</code> shortcut. To abort and dismiss Commit, press the "
-"Abort button or the <code>Escape</code> key."
+msgid "Commit will pop up automatically when you make a commit in one of your projects. To save your commit message, press the Commit button or the <code>Ctrl+Return</code> shortcut. To abort and dismiss Commit, press the Abort button or the <code>Escape</code> key."
 msgstr "Commit projelerinizde bir commit eylemi gerçekleştirdiğinizde otomatik olarak ortaya çıkar. Commit mesajınızı kaydetmek için, Commit butonunu yada <code>Ctrl+Return</code> kısayolunu kullanın. Commiti geri almak ve iptal etmek için Abort butonunu yada <code>Escape</code> tuşunu kullanın."
 
 #: data/re.sonny.Commit.metainfo.xml:28
@@ -104,11 +95,8 @@ msgid "Emoji picker"
 msgstr "Emoji seçici"
 
 #: data/re.sonny.Commit.metainfo.xml:41
-msgid ""
-"Supports git commit, merge, tag --annotate, add --patch, rebase --interactive"
-msgstr ""
-"Git işlemelerini destekler (commit, merge, tag --annotate, add --patch, "
-"rebase --interactive)"
+msgid "Supports git commit, merge, tag --annotate, add --patch, rebase --interactive"
+msgstr "Git işlemelerini destekler (commit, merge, tag --annotate, add --patch, rebase --interactive)"
 
 #: data/re.sonny.Commit.metainfo.xml:42
 msgid "Supports Mercurial commit"
@@ -144,9 +132,7 @@ msgstr "Karşılama penceresi"
 
 #: data/re.sonny.Commit.metainfo.xml:81
 msgid "Resize the window to disable auto formatting"
-msgstr ""
-"Otomatik biçimlendirmeyi devre dışı bırakmak için pencereyi yeniden "
-"boyutlandırın"
+msgstr "Otomatik biçimlendirmeyi devre dışı bırakmak için pencereyi yeniden boyutlandırın"
 
 #: data/re.sonny.Commit.metainfo.xml:89
 msgid "Add a theme switcher"
@@ -182,8 +168,7 @@ msgstr "Herhangi bir dosyayı düzenlemeyi destekler"
 
 #: data/re.sonny.Commit.metainfo.xml:104
 msgid "Make the primary button label dynamic (Tag, Rebase, Commit, ...)"
-msgstr ""
-"Birincil düğme etiketini dinamik yap (Etiket, Yeniden Temel, İşlem, ...)"
+msgstr "Birincil düğme etiketini dinamik yap (Etiket, Yeniden Temel, İşlem, ...)"
 
 #: data/re.sonny.Commit.metainfo.xml:105
 msgid "Use 2 spaces indentation"
@@ -278,12 +263,8 @@ msgid "Add 6px margin to editor"
 msgstr "Düzenleyiciye 6px kenar boşluğu ekleyin"
 
 #: data/re.sonny.Commit.metainfo.xml:160
-msgid ""
-"Action required. After updating, please launch the application and follow "
-"the instructions."
-msgstr ""
-"Eylem Gerekli. Güncellemeden sonra, lütfen uygulamayı başlatın ve "
-"talimatları izleyin."
+msgid "Action required. After updating, please launch the application and follow the instructions."
+msgstr "Eylem Gerekli. Güncellemeden sonra, lütfen uygulamayı başlatın ve talimatları izleyin."
 
 #: data/re.sonny.Commit.metainfo.xml:165
 msgid "Show a welcome window when launched from desktop"
@@ -309,34 +290,13 @@ msgstr "İşleme mesajlarında \"#\" desteği"
 msgid "Properly recognize executable path"
 msgstr "Çalıştırılabilir yolu düzgün bir şekilde tanımlayın"
 
-#. TRANSLATORS: eg. 'Translator Name <your.email@domain.com>' or 'Translator Name https://website.example'
-#: src/about.js:18
-msgid "translator-credits"
-msgstr "Eren İnce <erenince@proton.me>"
+#: lib/commit/preference_rows.rb:42
+msgid "Title Maximum Length (in characters)"
+msgstr "Maksimum başlık uzunluğu (karakter sayısı olarak)"
 
-#: src/scm.js:5 src/scm.js:6
-msgid "_Commit"
-msgstr "_İşleme"
-
-#: src/scm.js:7
-msgid "_Merge"
-msgstr "_Birleştirme"
-
-#: src/scm.js:8
-msgid "_Tag"
-msgstr "_Etiket"
-
-#: src/scm.js:9
-msgid "A_dd"
-msgstr "A_dd"
-
-#: src/scm.js:10
-msgid "_Rebase"
-msgstr "_Yeniden tabanlama"
-
-#: src/scm.js:14 src/window.ui:30
-msgid "_Save"
-msgstr "_Kaydet"
+#: lib/commit/preference_rows.rb:50
+msgid "Body Lines Maximum Length (in characters)"
+msgstr "Maksimum body satırı uzunluğu (karakter sayısı olarak)"
 
 #: src/ShortcutsWindow.ui:10
 msgid "Editing"
@@ -378,13 +338,34 @@ msgstr "Klavye Kısayolları"
 msgid "Quit"
 msgstr "Çık"
 
-#: src/window.ui:19
-msgid "_Abort"
-msgstr "_İptal"
+#. TRANSLATORS: eg. 'Translator Name <your.email@domain.com>' or 'Translator Name https://website.example'
+#: src/about.js:18
+msgid "translator-credits"
+msgstr "Eren İnce <erenince@proton.me>"
 
-#: src/window.ui:83 src/welcome.ui:184
-msgid "About Commit"
-msgstr "İşleme Hakkında"
+#: src/scm.js:5 src/scm.js:6
+msgid "_Commit"
+msgstr "_İşleme"
+
+#: src/scm.js:7
+msgid "_Merge"
+msgstr "_Birleştirme"
+
+#: src/scm.js:8
+msgid "_Tag"
+msgstr "_Etiket"
+
+#: src/scm.js:9
+msgid "A_dd"
+msgstr "A_dd"
+
+#: src/scm.js:10
+msgid "_Rebase"
+msgstr "_Yeniden tabanlama"
+
+#: src/scm.js:14 src/window.ui:30
+msgid "_Save"
+msgstr "_Kaydet"
 
 #: src/welcome.ui:28
 msgid "Preferences"
@@ -395,11 +376,8 @@ msgid "Git"
 msgstr "Git"
 
 #: src/welcome.ui:73
-msgid ""
-"To set Commit as default editor for Git run the following command in Terminal"
-msgstr ""
-"Commit'i Git için varsayılan düzenleyici olarak ayarlamak için Terminal'de "
-"aşağıdaki komutu çalıştırın"
+msgid "To set Commit as default editor for Git run the following command in Terminal"
+msgstr "Commit'i Git için varsayılan düzenleyici olarak ayarlamak için Terminal'de aşağıdaki komutu çalıştırın"
 
 #: src/welcome.ui:100 src/welcome.ui:155
 msgid "Copy to Clipboard"
@@ -410,10 +388,8 @@ msgid "Documentation"
 msgstr "Belgeler"
 
 #: src/welcome.ui:112
-msgid ""
-"https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration#_core_editor"
-msgstr ""
-"https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration#_core_editor"
+msgid "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration#_core_editor"
+msgstr "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration#_core_editor"
 
 #: src/welcome.ui:123
 msgid "Mercurial"
@@ -421,13 +397,17 @@ msgstr "Mercurial"
 
 #. TRANSLATORS: Don't translate <tt>hgrc</tt>
 #: src/welcome.ui:128
-msgid ""
-"To set Commit as default editor for Mercurial, set the following in your "
-"<tt>hgrc</tt>"
-msgstr ""
-"Commit'i Mercurial için varsayılan düzenleyici olarak ayarlamak üzere "
-"<tt>hgrc</tt> içinde aşağıdakini ayarlayın"
+msgid "To set Commit as default editor for Mercurial, set the following in your <tt>hgrc</tt>"
+msgstr "Commit'i Mercurial için varsayılan düzenleyici olarak ayarlamak üzere <tt>hgrc</tt> içinde aşağıdakini ayarlayın"
 
 #: src/welcome.ui:167
 msgid "https://www.mercurial-scm.org/wiki/editor"
 msgstr "https://www.mercurial-scm.org/wiki/editor"
+
+#: src/welcome.ui:184 src/window.ui:83
+msgid "About Commit"
+msgstr "İşleme Hakkında"
+
+#: src/window.ui:19
+msgid "_Abort"
+msgstr "_İptal"

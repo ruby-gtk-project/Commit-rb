@@ -39,7 +39,7 @@ module Commit
 
     def title_length_row
       @title_length_row ||= spin_row(
-        "Title Maximum Length (in characters)",
+        _("Title Maximum Length (in characters)"),
         MIN_TITLE_LENGTH_HINT,
         MAX_TITLE_LENGTH_HINT,
       )
@@ -47,7 +47,7 @@ module Commit
 
     def body_length_row
       @body_length_row ||= spin_row(
-        "Body Lines Maximum Length (in characters)",
+        _("Body Lines Maximum Length (in characters)"),
         MIN_BODY_LENGTH_WRAP,
         MAX_BODY_LENGTH_WRAP,
       )

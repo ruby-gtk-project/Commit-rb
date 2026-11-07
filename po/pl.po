@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: re.sonny.Commit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-21 11:19+0200\n"
+"POT-Creation-Date: 2026-11-07 00:00+0000\n"
 "PO-Revision-Date: 2023-01-04 19:49+0000\n"
 "Last-Translator: Maciej Błędkowski <mble@tuta.io>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/commit/commit/pl/>\n"
@@ -15,7 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 ||"
+" n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 4.15.1-dev\n"
 
 #. TRANSLATORS: Don't translate
@@ -23,8 +24,7 @@ msgstr ""
 msgid "Commit"
 msgstr "Commit"
 
-#: data/re.sonny.Commit.desktop:5 data/re.sonny.Commit.metainfo.xml:10
-#: src/about.js:9
+#: data/re.sonny.Commit.desktop:5 data/re.sonny.Commit.metainfo.xml:10 src/about.js:9
 msgid "Commit message editor"
 msgstr "Edytor wiadomości Commit"
 
@@ -290,34 +290,13 @@ msgstr "Obsługa \"#\" w wiadomościach commit"
 msgid "Properly recognize executable path"
 msgstr "Prawidłowe rozpoznawanie ścieżki do pliku wykonywalnego"
 
-#. TRANSLATORS: eg. 'Translator Name <your.email@domain.com>' or 'Translator Name https://website.example'
-#: src/about.js:18
-msgid "translator-credits"
-msgstr "realis <realiss@protonmail.com>"
+#: lib/commit/preference_rows.rb:42
+msgid "Title Maximum Length (in characters)"
+msgstr "Maksymalna długość tytułu (w znakach)"
 
-#: src/scm.js:5 src/scm.js:6
-msgid "_Commit"
-msgstr "_Commit"
-
-#: src/scm.js:7
-msgid "_Merge"
-msgstr "_Merge"
-
-#: src/scm.js:8
-msgid "_Tag"
-msgstr "_Tag"
-
-#: src/scm.js:9
-msgid "A_dd"
-msgstr "_Dodaj"
-
-#: src/scm.js:10
-msgid "_Rebase"
-msgstr "_Rebase"
-
-#: src/scm.js:14 src/window.ui:30
-msgid "_Save"
-msgstr "_Zapisz"
+#: lib/commit/preference_rows.rb:50
+msgid "Body Lines Maximum Length (in characters)"
+msgstr "Maksymalna długość wierszy body (w znakach)"
 
 #: src/ShortcutsWindow.ui:10
 msgid "Editing"
@@ -359,13 +338,34 @@ msgstr "Skróty klawiszowe"
 msgid "Quit"
 msgstr "Wyjdź"
 
-#: src/window.ui:19
-msgid "_Abort"
-msgstr "_Porzuć"
+#. TRANSLATORS: eg. 'Translator Name <your.email@domain.com>' or 'Translator Name https://website.example'
+#: src/about.js:18
+msgid "translator-credits"
+msgstr "realis <realiss@protonmail.com>"
 
-#: src/window.ui:83 src/welcome.ui:184
-msgid "About Commit"
-msgstr "O Commit"
+#: src/scm.js:5 src/scm.js:6
+msgid "_Commit"
+msgstr "_Commit"
+
+#: src/scm.js:7
+msgid "_Merge"
+msgstr "_Merge"
+
+#: src/scm.js:8
+msgid "_Tag"
+msgstr "_Tag"
+
+#: src/scm.js:9
+msgid "A_dd"
+msgstr "_Dodaj"
+
+#: src/scm.js:10
+msgid "_Rebase"
+msgstr "_Rebase"
+
+#: src/scm.js:14 src/window.ui:30
+msgid "_Save"
+msgstr "_Zapisz"
 
 #: src/welcome.ui:28
 msgid "Preferences"
@@ -404,53 +404,43 @@ msgstr "Aby ustawić Commit jako domyślny edytor dla Mercuriala, ustaw następu
 msgid "https://www.mercurial-scm.org/wiki/editor"
 msgstr "https://www.mercurial-scm.org/wiki/editor"
 
+#: src/welcome.ui:184 src/window.ui:83
+msgid "About Commit"
+msgstr "O Commit"
+
+#: src/window.ui:19
+msgid "_Abort"
+msgstr "_Porzuć"
+
 #~ msgid "Use dark mode"
 #~ msgstr "Użyj trybu ciemnego"
-
-#, fuzzy
 #~ msgid "Main window - dark mode"
 #~ msgstr "Główne okno Commit - tryb ciemny"
-
-#, fuzzy
 #~ msgid "Welcome window - dark mode"
 #~ msgstr "Okno powitalne Commit - tryb ciemny"
-
-#, fuzzy
 #~ msgid "Support multiple comments"
 #~ msgstr "Obsługa wiadomości commit w Mercurial"
-
 #~ msgid "Message title length hint"
 #~ msgstr "Wskazówka dotycząca długości tytułu wiadomości"
-
 #~ msgid "Highlights overflow of title when it exceeds 50 characters (customizable)"
 #~ msgstr "Podkreśla przepełnienie tytułu, gdy przekracza 50 znaków (możliwość dostosowania)"
-
 #~ msgid "Translate to French"
 #~ msgstr "Tłumczenie na język francuski"
-
 #~ msgid "Translate to Croatian"
 #~ msgstr "Tłumaczenie na język chorwacki"
-
 #~ msgid "Translate to German"
 #~ msgstr "Tłumaczenie na język niemiecki"
-
 #~ msgid "Translate to Russian"
 #~ msgstr "Tłumaczenie na język rosyjski"
-
 #~ msgid "Translate to Dutch"
 #~ msgstr "Tłumaczenie na język niderlandzki"
-
 #~ msgid "Translate to Brazilien Portguese"
 #~ msgstr "Tłumaczenie na język portugalski odmiany brazylijskiej"
-
 #~ msgid "Add Czech translation"
 #~ msgstr "Dodanie tłumaczenia języka czeskiego"
-
 #~ msgid "Add Spanish translation"
 #~ msgstr "Dodanie tłumaczenia języka hiszpańskiego"
-
 #~ msgid "Cancel"
 #~ msgstr "Anuluj"
-
 #~ msgid "⚠️ Action required. After updating, please launch the application and follow the instructions."
 #~ msgstr "⚠️ Wymagane działanie. Po aktualizacji proszę uruchomić aplikacje i postępować zgodnie z instrukcjami."

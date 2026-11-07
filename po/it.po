@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: re.sonny.Commit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-21 11:19+0200\n"
+"POT-Creation-Date: 2026-11-07 00:00+0000\n"
 "PO-Revision-Date: 2023-03-23 15:37+0000\n"
 "Last-Translator: Davide <davide.ferracin@protonmail.com>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/commit/commit/it/"
-">\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/commit/commit/it/>"
+"\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,8 +24,7 @@ msgstr ""
 msgid "Commit"
 msgstr "Commit"
 
-#: data/re.sonny.Commit.desktop:5 data/re.sonny.Commit.metainfo.xml:10
-#: src/about.js:9
+#: data/re.sonny.Commit.desktop:5 data/re.sonny.Commit.metainfo.xml:10 src/about.js:9
 msgid "Commit message editor"
 msgstr "Editor del messaggio di commit"
 
@@ -44,9 +43,7 @@ msgstr "Lunghezza massima del corpo del messaggio (in caratteri)"
 
 #: data/re.sonny.Commit.metainfo.xml:13
 msgid "Commit is an editor that helps you write better Git and Mercurial commit messages."
-msgstr ""
-"Commit è un editor che aiuta a scrivere dei migliori messaggi di commit per "
-"Git e Mercurial."
+msgstr "Commit è un editor che aiuta a scrivere dei migliori messaggi di commit per Git e Mercurial."
 
 #: data/re.sonny.Commit.metainfo.xml:17
 msgid "After installing make sure to launch the application and follow the instructions."
@@ -293,34 +290,13 @@ msgstr "Supporto per \"#\" nei messaggi di commit"
 msgid "Properly recognize executable path"
 msgstr "Corretto il riconoscimento del percorso dell'eseguibile"
 
-#. TRANSLATORS: eg. 'Translator Name <your.email@domain.com>' or 'Translator Name https://website.example'
-#: src/about.js:18
-msgid "translator-credits"
-msgstr "Davide Ferracin <davide.ferracin@protonmail.com>"
+#: lib/commit/preference_rows.rb:42
+msgid "Title Maximum Length (in characters)"
+msgstr "Lunghezza massima del titolo (in caratteri)"
 
-#: src/scm.js:5 src/scm.js:6
-msgid "_Commit"
-msgstr "_Commit"
-
-#: src/scm.js:7
-msgid "_Merge"
-msgstr "_Merge"
-
-#: src/scm.js:8
-msgid "_Tag"
-msgstr "_Tag"
-
-#: src/scm.js:9
-msgid "A_dd"
-msgstr "A_ggiungi"
-
-#: src/scm.js:10
-msgid "_Rebase"
-msgstr "_Rebase"
-
-#: src/scm.js:14 src/window.ui:30
-msgid "_Save"
-msgstr "_Salva"
+#: lib/commit/preference_rows.rb:50
+msgid "Body Lines Maximum Length (in characters)"
+msgstr "Lunghezza massima del corpo del messaggio (in caratteri)"
 
 #: src/ShortcutsWindow.ui:10
 msgid "Editing"
@@ -362,13 +338,34 @@ msgstr "Scorciatoie da tastiera"
 msgid "Quit"
 msgstr "Esci"
 
-#: src/window.ui:19
-msgid "_Abort"
-msgstr "_Annulla"
+#. TRANSLATORS: eg. 'Translator Name <your.email@domain.com>' or 'Translator Name https://website.example'
+#: src/about.js:18
+msgid "translator-credits"
+msgstr "Davide Ferracin <davide.ferracin@protonmail.com>"
 
-#: src/window.ui:83 src/welcome.ui:184
-msgid "About Commit"
-msgstr "Informazioni su Commit"
+#: src/scm.js:5 src/scm.js:6
+msgid "_Commit"
+msgstr "_Commit"
+
+#: src/scm.js:7
+msgid "_Merge"
+msgstr "_Merge"
+
+#: src/scm.js:8
+msgid "_Tag"
+msgstr "_Tag"
+
+#: src/scm.js:9
+msgid "A_dd"
+msgstr "A_ggiungi"
+
+#: src/scm.js:10
+msgid "_Rebase"
+msgstr "_Rebase"
+
+#: src/scm.js:14 src/window.ui:30
+msgid "_Save"
+msgstr "_Salva"
 
 #: src/welcome.ui:28
 msgid "Preferences"
@@ -401,25 +398,27 @@ msgstr "Mercurial"
 #. TRANSLATORS: Don't translate <tt>hgrc</tt>
 #: src/welcome.ui:128
 msgid "To set Commit as default editor for Mercurial, set the following in your <tt>hgrc</tt>"
-msgstr ""
-"Per impostare Commit come editor predefinito per Mercurial, aggiungere la "
-"seguente configurazione al proprio <tt>hgrc</tt>"
+msgstr "Per impostare Commit come editor predefinito per Mercurial, aggiungere la seguente configurazione al proprio <tt>hgrc</tt>"
 
 #: src/welcome.ui:167
 msgid "https://www.mercurial-scm.org/wiki/editor"
 msgstr "https://www.mercurial-scm.org/wiki/editor"
 
+#: src/welcome.ui:184 src/window.ui:83
+msgid "About Commit"
+msgstr "Informazioni su Commit"
+
+#: src/window.ui:19
+msgid "_Abort"
+msgstr "_Annulla"
+
 #~ msgid "Use dark mode"
 #~ msgstr "Usa il tema scuro"
-
 #~ msgid "Abort"
 #~ msgstr "Annulla"
-
 #~ msgid "Main window - dark mode"
 #~ msgstr "Finestra principale - tema scuro"
-
 #~ msgid "Welcome window - dark mode"
 #~ msgstr "Schermata di benvenuto - tema scuro"
-
 #~ msgid "⚠️ Action required. After updating, please launch the application and follow the instructions."
 #~ msgstr "⚠️ Azione richiesta. Dopo l'aggiornamento, lanciare l'applicazione e seguire le istruzioni."
