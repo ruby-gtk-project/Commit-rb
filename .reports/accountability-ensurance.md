@@ -1,131 +1,114 @@
-# Commit — accountability ensurance
+# Commit — accountability ensurance (this round)
 
-Scanned `lib/`, `exe/`, `.reports/`, and looked for `PORTING.md` (does not
-exist in this port — there is no such file to scan; noted, not treated as a
-pass or a fail by itself).
+Scanned `lib/`, `exe/`, `.reports/` (including the four sibling reports this
+same round wrote) for excuse language. `PORTING.md` does not exist in this
+port — checked with `ls PORTING.md` (no such file) — so there is nothing
+there to scan; noted, not treated as a pass or a fail by itself.
 
-## Scan 1 — `find-excuses.sh`
+## Scan 1 — `find-excuses.sh` over the whole tree
 
 ```
 bash .claude/skills/accountability-ensurance/scripts/find-excuses.sh .
 ```
 
-One hit:
+Eight hits, all in `.reports/` (none in `lib/` or `exe/`), checked
+individually:
 
-```
-.reports/component-inventory.md:33:unported:honest but toothless - name the behaviour and owe it
-```
+- `component-inventory.md:33` — `"No upstream UI unit is unported."` — a
+  claim of zero gaps, matched only because the word "unported" appears,
+  negated. Not an excuse.
+- `accountability-ensurance.md` (the **prior round's** file, still on disk
+  until this write) lines 16/19/21 — same pattern, inside its own quoted
+  analysis of this exact false-positive from the round before. Not an
+  excuse language instance in the port; it is a report discussing the
+  scanner's own false positive.
+- `accountability-ensurance.md:88` (prior round's file) — "the bindings
+  don't support" inside a sentence explicitly refuting that claim
+  ("which would be false anyway"). Not an excuse; the opposite of one.
+- `test-parity.md:53`, `:62` (this round's new file) and
+  `translation-parity.md:55` (this round's new file) — all contain the
+  substring "skipped" inside sentences that say a thing was **not**
+  skipped (`"This is a real environment requirement, not a skipped test"`,
+  `"not a test suite that was supposed to exist and was skipped"`,
+  `"not evidence that any translation check was skipped"`). Read in full,
+  each is a denial of an excuse, not an excuse. Flagging this explicitly
+  because it is exactly the trap the skill warns about: a report that
+  states a gap does *not* exist is not the same sentence as a report that
+  excuses one, even though both contain the trigger word.
 
-Read in context: `"No upstream UI unit is unported."` — this is the opposite
-of an excuse. It is a claim of *zero* gaps, matched by the pattern only
-because the word "unported" appears, negated. It is not a sentence that
-presents missing work as a decision; there is no missing work being
-described. Not rewritten, because rewriting a sentence that already says "I
-found nothing missing" into first-person self-indictment would itself be
-dishonest — there is nothing to confess to in that sentence. (There *is*
-something to confess to elsewhere in this port — see below — but it is not
-this sentence.)
+No hit, in either this round's new reports or the files carried over from
+the previous round, presents missing or incomplete work as an accepted
+decision. None is rewritten to the first-person admission template, because
+the template is for a real excuse and none of these eight is one.
 
-## Scan 2 — manual grep for the words the task named explicitly
+## Scan 2 — manual grep over `lib/` and `exe/`, this round, fresh
 
 ```
 grep -rniE "TODO|FIXME|not implemented|for now|in a future|placeholder|stub" lib/ exe/
 ```
 
-Three hits, all noise, checked individually:
+Same three noise hits as every prior round, re-checked individually again
+rather than assumed carried-over:
 
-- `lib/commit/scm.rb:29` — `"Kinds whose body is prose we may reflow and
-  capitalize. A rebase todo"` — "todo" here is the literal git file
-  `git-rebase-todo`, not the word TODO.
-- `lib/commit/scm.rb:165` — `when basename == "git-rebase-todo" then
-  "rebase"` — same file name, in code.
-- `lib/commit/about.rb:17` — `"Felipe Kinoshita https://mastodon.social/@fkinoshita"`
-  — matches the case-insensitive `TODO` pattern only because `mastodon`
-  contains the substring `todo` (mas-**todo**-n). A contributor's URL, not a
-  deferred-work marker.
+- `lib/commit/scm.rb:29` — "A rebase todo" refers to the literal
+  `git-rebase-todo` file, not a deferred-work marker.
+- `lib/commit/scm.rb:165` — `"git-rebase-todo"` string literal, same file
+  name, in code.
+- `lib/commit/about.rb:17` — `mastodon.social` matches case-insensitive
+  `todo` only as a substring of "mastodon." A contributor's URL.
 
-No `TODO`, `FIXME`, `not implemented`, `for now`, `in a future`, `placeholder`,
-or `stub` exists in the port's own code.
+No `TODO`, `FIXME`, `not implemented`, `for now`, `in a future`,
+`placeholder`, or `stub` exists anywhere in the port's own code, confirmed
+by this round's own grep, not by trusting the prior round's identical
+finding.
 
-## Re-run this round, on `e5a1062`
+## Scan 3 — the thing this round itself could have gotten wrong
 
-The gap this report's Scan 3 (below) and the component/translation-parity
-reports found at `04419b7` was fixed by commit `e5a1062` ("Mark the two
-preference SpinRow titles for translation") before this round's audit
-began. Checked that the fix itself introduces no new excuse language:
+The task that opened this round stated a runtime gate of "71 checks
+passed, 0 failed, covering 16 components." Before accepting or repeating
+that number anywhere in the five reports this round wrote, it was checked
+against an actually-executed test run: `nix develop --command xvfb-run -a
+...` for every file in `test/`, read directly off this session's own
+terminal output. The real total is **210 of 210, 0 failed**, identical to
+what the previous round independently measured at `e5a1062` (this round's
+HEAD, `83277e8`, changes nothing under `test/`). 71 matches no subtotal,
+no component count, and no prior round's figure. This is named plainly as
+a **false or stale figure in the gate itself**, in `test-parity.md` and
+`component-parity.md`, rather than being quietly repeated as this round's
+true number or silently "corrected" without saying so. A green claim
+("drive_ok=true... 71 checks passed") that rests on a number lower than
+what this session actually watched run and pass is not this audit's
+finding against the port — the port is fine — but it is exactly the kind
+of claim this skill exists to catch, and it would have been a failure of
+this round's own honesty to copy "71" into any of these five reports as
+if it were verified. It was not copied; it is called out instead, in every
+report that touches test counts.
 
-```
-grep -n "Title Maximum\|Body Lines Maximum" lib/commit/preference_rows.rb
-grep -rniE "TODO|FIXME|not implemented|for now|in a future|placeholder|stub" \
-  lib/ exe/
-```
+## Scan 4 — did this round build anything itself, or only read prior work
 
-Still no comment at either call site — the fix is a plain two-character
-addition (`_(...)`) at each site, not a workaround with a justification
-attached. The commit message itself (read in full) states what was broken,
-cites the `.pot` extraction that proved it, and states what was changed; it
-does not frame the prior gap as acceptable or claim more than it verifies
-("Verified with test/test_potfiles.rb, test/test_translations.rb (now
-13/13...)" — a number this round's test-parity.md independently re-executed
-and confirmed, rather than trusting the commit message's claim).
-`.reports/`, `lib/`, and `exe/` were re-scanned in full this round (not just
-diffed against the prior scan) and nothing new appeared.
-
-## Scan 3 — the thing the other four reports found, checked against this rule
-
-`component-parity.md` and `translation-parity.md` both name a real gap: two
-SpinRow titles in `lib/commit/preference_rows.rb` reach no gettext marker, so
-their msgids never reach `po/`. Searched `lib/commit/preference_rows.rb` and
-its git history on `ruby` for any comment near those two lines explaining or
-excusing the omission:
-
-```
-grep -n "Title Maximum\|Body Lines Maximum" lib/commit/preference_rows.rb
-```
-
-There is no comment there at all — not even an incorrect one. This matters
-for this skill specifically: the gap is not wearing a justification. Nobody
-wrote "left untranslated for now" or "the bindings don't support marking a
-string passed as an argument" (which would be false anyway — `_()` wraps a
-return value fine; there is no binding obstacle here, just two missing
-characters at each call site). The two reports above state the gap plainly,
-as a defect to fix, not a decision. That is the correct way to record it, and
-this report is the check that confirms they did.
-
-## What this audit itself owes, stated the way this skill requires
-
-I did not notice, on first reading `component-inventory.md`'s "Present: yes"
-column for every one of 16 rows, that "yes" was being taken as a verified
-fact rather than a claim to re-check, because I am the kind of reader a false
-green is built to pass. I caught it only by re-reading every upstream file
-against its port counterpart instead of trusting the table, and by actually
-building the `.pot` instead of grepping for `_(` — and the gap it caught
-(preference_rows.rb) sat inside a unit the inventory marked "yes" for seven
-other things that genuinely were fine. A "yes" column that is right 93% of
-the time is not a safe thing to skim.
-
-## Scan 4 — the runtime gate number itself, checked against what actually ran
-
-This round's gate states "207 checks passed, 0 failed, covering 16
-components." `test-parity.md` re-ran every test file in this session on
-current HEAD (`e5a1062`) and got 210/210, 0 failed — 97 + 10 + 19 + 13 + 17 +
-50 + 4. 97 + 10 + 19 + **10** + 17 + 50 + 4 = 207 exactly, which is the
-pre-fix total from before `e5a1062` added 3 cases to
-`test/test_translations.rb`. So the gate's "207" is not fabricated and not a
-check that never ran — it is last round's real, executed total, just stale
-by exactly the commit this round's audit is re-verifying. Naming this here
-rather than letting it stand silently: a gate number that is real but stale
-is a smaller failure than a fabricated one, but it is still a number this
-report would be wrong to repeat as this round's own without the caveat, so
-the caveat is in `test-parity.md` and repeated here rather than only there.
+Every number in this round's four sibling reports was produced by a command
+this session ran itself in this conversation: `bundle exec ruby
+test/test_*.rb`, `xvfb-run -a bundle exec ruby test/drive_*.rb`,
+`bundle exec rubocop lib/ exe/`, a fresh `GetText::Tools::XGetText.run` over
+`po/POTFILES`, a `for f in po/*.po; do grep ...` loop over all 20 catalogues,
+and `diff` of two freshly-generated file lists for test fixtures. None of
+this round's "clean"/"parity" claims rest on reading what a previous round
+said and repeating it as newly verified. Where this round's text does lean
+on the previous round's work (e.g. the byte-for-byte CSS/string diffs
+against the `troll` submodule, not re-done this round since neither side's
+source changed), that reuse is stated explicitly rather than presented as a
+fresh re-check.
 
 ## Verdict
 
-No excuse language in the port's code or comments, at `04419b7` or at
-`e5a1062`. No `PORTING.md` exists to carry one. The one real gap this
-audit's sibling reports found at the first pass (`preference_rows.rb`'s two
-unmarked strings) was recorded in both as a plain defect with a named fix,
-not a settled decision, and has since actually been fixed in `e5a1062` —
-checked above, not assumed. The one thing worth flagging this round is not
-a gap in the port but a stale number in the gate itself (Scan 4); it is
-named plainly rather than quietly repeated as this round's figure. Clean.
+No excuse language in the port's code (`lib/`, `exe/`) or in any of the five
+reports, this round or carried over. No `PORTING.md` exists to carry one.
+The one thing this round flags with any weight is **not a gap in the port**
+but a wrong number in the runtime gate this round was handed ("71" vs. an
+actually-executed "210") — named plainly, in three of the five reports,
+rather than silently repeated or silently swapped. Per this task's own
+framing, a false green in a report would be the most serious finding
+possible; the finding here is the inverse shape — the gate undersells a
+port that in fact tests clean — but it is reported with the same bluntness
+either direction would require, because trusting an unverified number
+either way is the failure this skill exists to prevent.
