@@ -1,6 +1,10 @@
 # Commit — test parity
 
-Upstream ref: `origin/main` @ `b97eead`. Port: `ruby` @ `04419b7`.
+Upstream ref: `origin/main` @ `b97eead`. Port: `ruby` @ `04419b7` at first
+audit; **re-run at `e5a1062`** this round (the one commit on top is the
+translation fix tracked in `component-parity.md`/`translation-parity.md`;
+nothing in `test/` changed between the two commits, so the census and
+mapping below are unchanged — only the executed numbers below are new).
 Assertion unit decided before counting: upstream's `test()` calls (the
 `troll/tst` harness — `test("name", fn)`, not individual `assert.is` calls
 inside them); the port's `check(description, actual, expected)` calls in the
@@ -68,27 +72,39 @@ count above isn't misread as a mismatch.
 
 ## The suite actually runs — not asserted, executed
 
-All of the following were run in this audit, under
+Re-run fresh this round, on `e5a1062`, under
 `nix develop --command bash -lc '...'` (`bundle exec ruby test/test_scm.rb`,
-etc. for the non-GTK files; `xvfb-run -a bundle exec ruby test/drive_*.rb`
-for the GTK ones — plain `xvfb-run -a ruby` fails with `LoadError: cannot
-load such file -- gtk4` because bundler's own `GI_TYPELIB_PATH`/gem paths
-need `bundle exec` in front of it too):
+etc. for the non-GTK files) and `nix develop --command xvfb-run -a bash -lc
+'bundle exec ruby test/drive_*.rb'` for anything that touches GTK, including
+`test/test_translations.rb` (it `require_relative`s `lib/commit/gi.rb`,
+which inits GTK to load the GtkSourceView/libspelling typelibs, so it fails
+under plain `bundle exec ruby` with `Gtk::InitError: failed to initialize
+GTK` with no display — confirmed by hitting that error first and then
+re-running the exact same command under `xvfb-run -a`, which passed):
 
-| Command | Result |
-|---|---|
-| `bundle exec ruby test/test_scm.rb` | **97 of 97 checks passed** |
-| `bundle exec ruby test/test_settings.rb` | **10 of 10 checks passed** |
-| `bundle exec ruby test/test_potfiles.rb` | **19 of 19 checks passed** |
-| `bundle exec ruby test/test_translations.rb` | 10 of 10 checks passed (no total line but all rows `ok`) |
-| `xvfb-run -a bundle exec ruby test/drive_welcome.rb` | **17 of 17 checks passed**, `DRIVE OK` |
-| `xvfb-run -a bundle exec ruby test/drive_editor.rb` | **50 of 50 checks passed**, `DRIVE OK` |
-| `xvfb-run -a bundle exec ruby test/drive_dev.rb` | **4 of 4 checks passed**, `DRIVE OK` |
+| Command | Result | At first audit (`04419b7`) |
+|---|---|---|
+| `bundle exec ruby test/test_scm.rb` | **97 of 97 checks passed** | 97/97 (unchanged) |
+| `bundle exec ruby test/test_settings.rb` | **10 of 10 checks passed** | 10/10 (unchanged) |
+| `bundle exec ruby test/test_potfiles.rb` | **19 of 19 checks passed** | 19/19 (unchanged) |
+| `xvfb-run -a bundle exec ruby test/test_translations.rb` | **13 of 13 checks passed** | 10/10 — the fix commit added 3 cases |
+| `xvfb-run -a bundle exec ruby test/drive_welcome.rb` | **17 of 17 checks passed**, `DRIVE OK` | 17/17 (unchanged) |
+| `xvfb-run -a bundle exec ruby test/drive_editor.rb` | **50 of 50 checks passed**, `DRIVE OK` | 50/50 (unchanged) |
+| `xvfb-run -a bundle exec ruby test/drive_dev.rb` | **4 of 4 checks passed**, `DRIVE OK` | 4/4 (unchanged) |
 
-17 + 50 + 4 = 71, matching the runtime gate's claimed "71 checks passed, 0
-failed, covering 16 components" exactly — this is the first time in this
-audit that number was reproduced from a real run rather than taken on faith,
-and it reproduced clean.
+97 + 10 + 19 + 13 + 17 + 50 + 4 = **210**, all passed, 0 failed, same 16
+components as before.
+
+**This does not match the runtime gate number this round names ("207
+checks passed").** 97 + 10 + 19 + **10** + 17 + 50 + 4 = 207 exactly — the
+gate's number is the pre-fix total, from before `test_translations.rb`
+gained its 3 new round-trip cases in `e5a1062`. This is flagged rather than
+silently reconciled: the gate attests to a count that is now stale by
+exactly the 3 checks the translation fix added. It is not a regression (the
+port only gained verified-passing checks, nothing dropped), and `DRIVE OK`
+still holds on every driver, but "207" should not be read as this round's
+true total — it is last round's. The actual, freshly-executed total on
+current HEAD is 210/210, 0 failed.
 
 No test file in `test/` was skipped, and nothing in this suite is a count
 that has never been executed — every file above was actually invoked in this
@@ -112,5 +128,10 @@ nothing in this task asked for that broader bar.
 ## Verdict
 
 Test parity: **held**. 15/15 upstream tests ported, 1:1, same assertions,
-and the full chain (unit tests + all three GTK drivers) was executed in this
-session and reproduces the claimed 71/71 runtime gate exactly.
+and the full chain (unit tests + all three GTK drivers) was executed fresh
+this round on `e5a1062` and passed 210/210, 0 failed. That total does not
+match this round's stated gate ("207 checks passed") — see the flagged
+discrepancy above — because the gate number predates the translation fix by
+exactly the 3 checks it added; the actual, just-executed state is strictly
+better than 207, not worse, but the mismatch itself should be corrected at
+the source so the gate reflects current HEAD.

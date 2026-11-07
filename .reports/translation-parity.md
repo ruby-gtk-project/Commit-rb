@@ -1,6 +1,8 @@
 # Commit — translation parity
 
-Upstream ref: `origin/main` @ `b97eead`. Port: `ruby` @ `04419b7`.
+Upstream ref: `origin/main` @ `b97eead`. Port: `ruby` @ `04419b7` at first
+audit; **re-verified at `e5a1062`** this round, which is `04419b7` plus the
+one fix this report's own Finding 1 called for and nothing else.
 
 ## Method
 
@@ -31,12 +33,18 @@ bundle exec ruby -e '
 This is the actual extraction a catalogue refresh runs, not a grep standing
 in for it.
 
-## Key-set diff
+## Key-set diff (as it stood at `04419b7`, before the fix below)
 
 | Side | Keys |
 |---|---:|
 | Upstream (`src/`, `data/`, `troll/src/widgets/ThemeSelector.*`) | 65 |
 | Port (`lib/`, `exe/`, `data/`) | 67 |
+
+(These two numbers come from the census script's marker scan, which counts
+differently from a real `xgettext` run — see the two `.pot` msgid counts, 38
+then 40, used throughout this report for the actual catalogue content. The
+table above is kept only to show the two sides were compared key-by-key, not
+just by raw count.)
 
 After resolving every scanner-only mismatch by hand (constant-argument calls,
 and the three `ThemeSelector` strings the first upstream scan missed because
@@ -58,50 +66,62 @@ shortcuts-window titles, the three theme-selector tooltip/accessible-label
 strings, and every welcome/preferences/about string — was diffed
 byte-for-byte and matches.
 
-## Finding 1 (confirmed by building the catalogue, not by grep)
+## Finding 1 — found at `04419b7` by building the catalogue, fixed at `e5a1062`, re-verified this round by building it again
 
-`lib/commit/preference_rows.rb:42` and `:50`:
+At the first audit, `lib/commit/preference_rows.rb:42` and `:50` passed
+`"Title Maximum Length (in characters)"` and
+`"Body Lines Maximum Length (in characters)"` straight into `spin_row(title,
+…)`, which does `row.title = title` with no `_()`/`N_()` anywhere in the
+chain. Upstream marks both strings (`welcome.blp:spin_hint`/`spin_wrap`,
+`preferences.blp` shares the same blueprint-declared rows) and all 20
+upstream `.po` files carried translations for them, so the English-only
+regression would have hit both the welcome window's global preferences and
+the in-editor repository preferences dialog, in every one of the 20
+languages Commit ships.
 
-```ruby
-def title_length_row
-  @title_length_row ||= spin_row(
-    "Title Maximum Length (in characters)",
-    MIN_TITLE_LENGTH_HINT,
-    MAX_TITLE_LENGTH_HINT,
-  )
-end
+That gap was not caught by `test/test_potfiles.rb` or
+`test/test_translations.rb` at the time: `test_potfiles.rb` only checks that
+a file *containing any* gettext call is listed in `POTFILES` (it was —
+`preference_rows.rb` already had one, `_("Auto Capitalize Title")`), not
+that *every* user-visible string in that file is marked, and
+`test_translations.rb` spot-checks a fixed list of known strings that had
+never included these two.
 
-def body_length_row
-  @body_length_row ||= spin_row(
-    "Body Lines Maximum Length (in characters)",
-    MIN_BODY_LENGTH_WRAP,
-    MAX_BODY_LENGTH_WRAP,
-  )
-end
+**Fixed in `e5a1062`.** Re-verified independently this round, not taken on
+the commit message's word:
+
+```
+nix develop --command bash -lc '
+  bundle exec ruby -e "
+    require \"gettext/tools/xgettext\"
+    files = File.readlines(\"po/POTFILES\", chomp: true).reject(&:empty?)
+    GetText::Tools::XGetText.run(*files, \"-o\", \"/tmp/commit_check2.pot\")
+  "
+  grep -c \"^msgid \" /tmp/commit_check2.pot   # => 40 (was 38)
+  grep -i \"Maximum Length\" /tmp/commit_check2.pot   # => both msgids present
+'
 ```
 
-`spin_row` does `row.title = title` with no `_()`/`N_()` anywhere in the
-chain. `grep -rn "Maximum Length" lib/ po/` finds the strings only in
-`preference_rows.rb` — nowhere in `po/`, not even in the `.pot`. Running the
-real extraction above against `po/POTFILES` (which does correctly list
-`lib/commit/preference_rows.rb`, because the file's other string — `"Auto
-Capitalize Title"` — *is* marked) produced a 38-msgid `.pot` and
-`grep -i "Maximum Length" /tmp/commit_check.pot` returned nothing.
+Also checked, this round:
 
-Upstream marks both strings (`welcome.blp:spin_hint`/`spin_wrap`,
-`preferences.blp` shares the same blueprint-declared rows) and all 20
-upstream `.po` files carry translations for them. Those two rows are used by
-**both** the welcome window's global preferences and the in-editor
-repository preferences dialog, so the English-only regression is visible in
-both places, in every one of the 20 languages Commit ships.
-
-This was not caught by `test/test_potfiles.rb` or `test/test_translations.rb`:
-`test_potfiles.rb` checks that a file *containing any* gettext call is listed
-in `POTFILES` (it is — `preference_rows.rb` has one, `_("Auto Capitalize
-Title")`), not that *every* user-visible string in that file is marked.
-`test_translations.rb` spot-checks a fixed list of known strings and was
-never going to notice two that were never added to it. No test flags this
-gap today; a suite that is green does not mean this string pair is covered.
+- Every one of the 20 `.po` files (`for f in po/*.po; do grep -q "Title
+  Maximum Length" "$f" || echo MISSING; done`) carries the msgid — no
+  `MISSING` printed.
+- Neither of the two msgids is left `#, fuzzy` in any `.po` file (checked
+  with an awk scan for the line immediately before each msgid, across all
+  20 files — no hits). Three `.po` files (`ja.po`, `sk.po`, `pt_BR.po`) still
+  carry a handful of fuzzy entries, but all of them are against
+  `metainfo.xml`/upstream-only source paths outside this port's `POTFILES`
+  and predate this fix; they are not this gap.
+- `test/test_translations.rb`, run fresh under
+  `nix develop --command xvfb-run -a bash -lc 'bundle exec ruby
+  test/test_translations.rb'` (plain `ruby` without `xvfb-run` fails —
+  the file requires `lib/commit/gi.rb`, which needs a display to init GTK):
+  **13 of 13 checks passed**, up from 10/10 at the first audit — the fix
+  commit added cases that round-trip the German translation of both titles
+  through the compiled catalogue.
+- `test/drive_welcome.rb` step `[3]` (`title length`, `body length` checks)
+  passes live against the running welcome window: 17/17.
 
 ## Languages
 
@@ -113,12 +133,14 @@ the `.mo` build step genuinely runs, not just the file-presence check.
 
 ## Verdict
 
-Not clean. Two msgids upstream ships (`"Title Maximum Length (in
-characters)"`, `"Body Lines Maximum Length (in characters)"`) do not reach
-the port's catalogue — confirmed by an actual `xgettext` run, not inferred.
-Fix: wrap both literals in `_()` (or `N_()` + translate at the call site, to
-match how `Scm`'s action labels are handled) in
-`lib/commit/preference_rows.rb`, then regenerate `po/re.sonny.Commit.pot` and
-re-check the diff above comes back empty. Everything else censused — all 63
-other upstream keys, all 20 languages, all `.po`/`.pot` plumbing — carries
-over unchanged.
+Clean as of `e5a1062`. The two msgids this audit originally found missing
+(`"Title Maximum Length (in characters)"`, `"Body Lines Maximum Length (in
+characters)"`) were confirmed missing at `04419b7` by an actual `xgettext`
+run, fixed in `e5a1062`, and the fix was re-verified this round by running
+`xgettext` again (40 msgids, both present), checking all 20 `.po` files
+individually for the msgid and for an unintended `fuzzy` flag, and by rerunning
+`test/test_translations.rb` (13/13, up from 10/10) and `test/drive_welcome.rb`
+(17/17) live. All 63 other upstream keys, all 20 languages, all `.po`/`.pot`
+plumbing were censused at the first audit and nothing else in that scope
+changed between `04419b7` and `e5a1062` (confirmed by `git diff --stat`,
+which touches only `preference_rows.rb` and the `po/` files).

@@ -47,6 +47,30 @@ Three hits, all noise, checked individually:
 No `TODO`, `FIXME`, `not implemented`, `for now`, `in a future`, `placeholder`,
 or `stub` exists in the port's own code.
 
+## Re-run this round, on `e5a1062`
+
+The gap this report's Scan 3 (below) and the component/translation-parity
+reports found at `04419b7` was fixed by commit `e5a1062` ("Mark the two
+preference SpinRow titles for translation") before this round's audit
+began. Checked that the fix itself introduces no new excuse language:
+
+```
+grep -n "Title Maximum\|Body Lines Maximum" lib/commit/preference_rows.rb
+grep -rniE "TODO|FIXME|not implemented|for now|in a future|placeholder|stub" \
+  lib/ exe/
+```
+
+Still no comment at either call site — the fix is a plain two-character
+addition (`_(...)`) at each site, not a workaround with a justification
+attached. The commit message itself (read in full) states what was broken,
+cites the `.pot` extraction that proved it, and states what was changed; it
+does not frame the prior gap as acceptable or claim more than it verifies
+("Verified with test/test_potfiles.rb, test/test_translations.rb (now
+13/13...)" — a number this round's test-parity.md independently re-executed
+and confirmed, rather than trusting the commit message's claim).
+`.reports/`, `lib/`, and `exe/` were re-scanned in full this round (not just
+diffed against the prior scan) and nothing new appeared.
+
 ## Scan 3 — the thing the other four reports found, checked against this rule
 
 `component-parity.md` and `translation-parity.md` both name a real gap: two
@@ -80,12 +104,28 @@ building the `.pot` instead of grepping for `_(` — and the gap it caught
 other things that genuinely were fine. A "yes" column that is right 93% of
 the time is not a safe thing to skim.
 
+## Scan 4 — the runtime gate number itself, checked against what actually ran
+
+This round's gate states "207 checks passed, 0 failed, covering 16
+components." `test-parity.md` re-ran every test file in this session on
+current HEAD (`e5a1062`) and got 210/210, 0 failed — 97 + 10 + 19 + 13 + 17 +
+50 + 4. 97 + 10 + 19 + **10** + 17 + 50 + 4 = 207 exactly, which is the
+pre-fix total from before `e5a1062` added 3 cases to
+`test/test_translations.rb`. So the gate's "207" is not fabricated and not a
+check that never ran — it is last round's real, executed total, just stale
+by exactly the commit this round's audit is re-verifying. Naming this here
+rather than letting it stand silently: a gate number that is real but stale
+is a smaller failure than a fabricated one, but it is still a number this
+report would be wrong to repeat as this round's own without the caveat, so
+the caveat is in `test-parity.md` and repeated here rather than only there.
+
 ## Verdict
 
-No excuse language in the port's code or comments. No `PORTING.md` exists to
-carry one. The one real gap this audit's sibling reports found
-(`preference_rows.rb`'s two unmarked strings) is recorded in both of them as
-a plain defect with a named fix, not as a settled decision — which is what
-this skill exists to force, and in this case there was nothing to force,
-because nobody had written the excuse yet. That is a narrow pass: it means
-no one has covered for the gap, not that the gap does not exist.
+No excuse language in the port's code or comments, at `04419b7` or at
+`e5a1062`. No `PORTING.md` exists to carry one. The one real gap this
+audit's sibling reports found at the first pass (`preference_rows.rb`'s two
+unmarked strings) was recorded in both as a plain defect with a named fix,
+not a settled decision, and has since actually been fixed in `e5a1062` —
+checked above, not assumed. The one thing worth flagging this round is not
+a gap in the port but a stale number in the gate itself (Scan 4); it is
+named plainly rather than quietly repeated as this round's figure. Clean.

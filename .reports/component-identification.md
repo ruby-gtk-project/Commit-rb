@@ -1,7 +1,12 @@
 # Commit — component identification (verification pass)
 
 Upstream ref recorded for this audit: `origin/main` @ `b97eead` ("GNOME 51").
-Port: `ruby` branch, HEAD `04419b7` at the time of this audit.
+Port: `ruby` branch, HEAD `04419b7` at the first audit; **re-confirmed at
+`e5a1062`** this round. The only change between the two is the translation
+fix tracked in `component-parity.md`/`translation-parity.md`
+(`lib/commit/preference_rows.rb` + `po/`); nothing that bears on component
+identification (file mapping, unit count) changed, so the 16-row map below
+still holds and was spot-checked again rather than assumed.
 
 `.reports/component-inventory.md` (written by an earlier pass) is the
 identification document for this port and its 16-row unit map was re-walked
