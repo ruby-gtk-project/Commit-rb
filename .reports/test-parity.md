@@ -1,120 +1,75 @@
 # Commit — test parity (this round's re-verification)
 
-Upstream: `origin/main` @ `b97eead`. Port: `ruby` @ `83277e8`, which is
-`e5a1062` (the commit the prior round's test-parity audit ran against) plus
-one reports-only commit — confirmed with `git diff --stat e5a1062 83277e8`
-touching only `.reports/`, nothing under `test/`.
+Upstream: `origin/main` @ `b97eead`. Port: `ruby` @ `e2690c0`.
 
-## Census (unchanged, re-confirmed by direct listing, not assumed)
+## Census (unchanged, re-confirmed by direct listing)
 
-```
+```sh
 git ls-tree -r --name-only origin/main | grep '^test/' | grep -v fixtures
 ```
 
-gives `test/helpers.test.js`, `test/scm.test.js`, `test/wrap.test.js` — the
-same three files the prior audit counted, 15 `test(...)` calls total. The
-port's `test/test_scm.rb` and `test/test_settings.rb` map all 15 1:1 (see
-the prior round's mapping table, re-spot-checked this round against
-`test/test_scm.rb` and `test/test_settings.rb` directly: the `getType` table
-still has all 13 upstream cases, the `empty_commit_message?` table still has
-all 7). Fixture parity re-checked by diffing file lists directly:
+gives `test/helpers.test.js`, `test/scm.test.js`, `test/wrap.test.js` — 15
+`test(...)` calls total, same as every prior round. The port's
+`test/test_scm.rb` and `test/test_settings.rb` map all 15 1:1; re-spot-checked
+this round directly against both files (`getType` table still has all 13
+upstream cases, `empty_commit_message?` table still has all 7). Fixture
+parity re-checked by diffing file lists directly — only addition is the
+port's own `format_expected.txt` / `format_input.txt` (a port-only `format`
+case) — no upstream fixture missing.
+
+## The suite actually run, fresh, this round
 
 ```
-diff <(git ls-tree -r --name-only origin/main | grep '^test/fixtures/' | sed 's#test/fixtures/##' | sort) \
-     <(find test/fixtures -type f | sed 's#^test/fixtures/##' | sort)
+nix develop --command bash test/run_all.sh
 ```
 
-Result: only addition is the port's own `format_expected.txt` /
-`format_input.txt` (used by a port-only `format` case) — no upstream
-fixture missing.
-
-## The suite actually run, fresh, this round — every number below is from this session's own terminal output
+run start to finish, in this session, with the full, unmodified output read
+off the terminal:
 
 ```
-nix develop --command bash -lc 'bundle exec ruby test/test_scm.rb'        → 97 of 97 checks passed
-nix develop --command bash -lc 'bundle exec ruby test/test_settings.rb'   → 10 of 10 checks passed
-nix develop --command bash -lc 'bundle exec ruby test/test_potfiles.rb'   → 19 of 19 checks passed
-nix develop --command xvfb-run -a bash -lc 'bundle exec ruby test/test_translations.rb' → 13 of 13 checks passed
-nix develop --command xvfb-run -a bash -lc 'bundle exec ruby test/drive_welcome.rb'      → 17 of 17 checks passed, DRIVE OK
-nix develop --command xvfb-run -a bash -lc 'bundle exec ruby test/drive_editor.rb'       → 50 of 50 checks passed, DRIVE OK
-nix develop --command xvfb-run -a bash -lc 'bundle exec ruby test/drive_dev.rb'          → 4 of 4 checks passed, DRIVE OK
-```
+test/test_scm.rb            97 of 97 checks passed
+test/test_settings.rb       10 of 10 checks passed
+test/test_potfiles.rb       19 of 19 checks passed
+test/test_translations.rb   13 of 13 checks passed
+test/drive_welcome.rb       17 of 17 checks passed, DRIVE OK
+test/drive_editor.rb        50 of 50 checks passed, DRIVE OK
+test/drive_dev.rb            4 of 4 checks passed, DRIVE OK
 
-97 + 10 + 19 + 13 + 17 + 50 + 4 = **210 of 210, 0 failed**, all 3 GTK
-drivers report `DRIVE OK`, same 16 components as the inventory. This
-matches the prior round's own fresh re-run at `e5a1062` exactly (as
-expected: no code under `test/`, `lib/`, or `data/` changed between
-`e5a1062` and `83277e8`), and was obtained independently in this session
-rather than copied from that report.
-
-Plain `ruby` (no `xvfb-run`) on `test/test_translations.rb` still fails with
-`Gtk::InitError: failed to initialize GTK` — re-confirmed this round before
-falling back to `xvfb-run -a`, same as the previous audit found. This is a
-real environment requirement, not a skipped test: it runs and passes under
-the display the dev shell provides.
-
-Also checked this round and **not** part of the 210, because it duplicates
-rather than extends upstream coverage: a stray top-level `spec/` directory
-(containing only `README.md` and `spec_helper.rb`, no actual spec files)
-left over from the `kettle-jem` packaging scaffold. `bundle exec rspec` was
-not run against it because there is nothing in it to run — confirmed by
-`find spec -type f`. This is packaging boilerplate, not a test suite that
-was supposed to exist and was skipped; noted here rather than silently
-ignored, per this round's instruction to say plainly when a suite's status
-is worth stating rather than assumed.
-
-## Runtime gate cross-check — flagged, same finding as `component-parity.md`
-
-This round's stated gate is **"71 checks passed, 0 failed, covering 16
-components."** The actual, freshly-run total this round is **210 of 210**.
-71 does not match 210 (current), does not match 207 (the previous round's
-stated — and by that round's own admission, stale-by-3 — total), and does
-not match any subtotal of the per-file counts above. Every file in `test/`
-was actually invoked in this session with its own printed pass/fail count;
-nothing here is an inferred or unexecuted number. The conclusion is that the
-"71" in this round's gate is itself inaccurate — understating real,
-executed, passing coverage — rather than evidence of a regression or an
-unrun suite. Per this task's framing ("a narrow or failed drive run is a
-parity gap in its own right"), the right response is not to quietly
-substitute 210 for 71 and call it reconciled, but to state outright: the
-suite ran fully, in this session, 210/210, every one of the 16 components
-covered by at least one check, and the "71" figure some upstream signal
-reported for this round does not reflect that. See
-`accountability-ensurance.md` for this same point treated as an
-accountability question rather than a test-count question.
-
-## Fixing the gate at the source, not just flagging it (this round)
-
-The prior round correctly identified that "71 checks passed, 0 failed,
-covering 16 components" did not match any actual run, but that finding had
-nowhere durable to live except prose in this file — the next round's gate
-could still be handed a wrong number with nothing in the repo to check it
-against. This round adds `test/run_all.sh`, committed alongside this report,
-which runs the seven files above in order, under the same `bundle exec
-ruby` / `xvfb-run -a bundle exec ruby` invocations shown earlier in this
-report, sums each file's own printed `N of N checks passed` line itself
-(rather than a human adding seven numbers by hand), and checks for
-`DRIVE OK` on each driver. It prints one final line:
-
-```
 TOTAL: 210 of 210 checks passed, 0 failed, covering 16 components
 ```
 
-Run fresh this round at HEAD `cfc8cda` with `nix develop --command bash
-test/run_all.sh`, it printed exactly that line — confirming, by a second,
-independent, mechanical path (summation done by the script, not by this
-report's author), the same 210/210 already measured file-by-file above.
-Going forward, the fork's runtime gate is whatever this script prints on a
-fresh run, not a number carried in a prior round's report or handed down
-by an external summary; a gate that disagrees with a fresh
-`test/run_all.sh` run is the thing that is wrong.
+This is a fresh invocation of the mechanical script added two rounds ago
+specifically to stop the gate from resting on hand-added subtotals — this
+round did not add seven numbers by hand, it ran the script and read its one
+printed line. It matches every prior round's figure exactly, because nothing
+under `test/`, `lib/`, or `data/` has changed since `e5a1062`.
+
+Also re-confirmed this round: plain `ruby` (no `xvfb-run`) on
+`test/test_translations.rb` still fails with `Gtk::InitError: failed to
+initialize GTK` — a real environment requirement (no display in the ambient
+shell), not a skipped test; it runs and passes under the display the dev
+shell's `xvfb-run -a` provides.
+
+The stray top-level `spec/` directory (`README.md` and `spec_helper.rb` only,
+no spec files, left over from the `kettle-jem` packaging scaffold) was
+checked again this round with `find spec -type f` — still nothing to run, so
+`rspec` was correctly not invoked against it. Not a skipped suite; there is
+no suite there.
+
+## Runtime gate — this round's gate was accurate
+
+Unlike the round before last (which was handed "71 checks passed" against an
+actually-executed 210, and flagged it loudly as a reporting defect), this
+round's stated gate — **"drive_ok=true, 210 checks passed, 0 failed, covering
+16 components"** — matches this round's own fresh, from-scratch run exactly.
+Nothing to correct here. The fix landed in the prior round (`test/run_all.sh`,
+committed at `e2690c0`) is what makes that possible: the gate is no longer a
+number copied from somewhere outside the repo, it is the literal printed
+output of a script this session re-ran.
 
 ## Verdict
 
-Test parity: **held**. 15 of 15 upstream tests ported 1:1. Full suite — unit
-tests, driver scripts, and translation round-trip — executed fresh this
-round, 210/210, 0 failed, all drivers `DRIVE OK`. The stated runtime gate
-for this round ("71 checks passed") is wrong and should not be trusted as
-this round's true figure; the actually-executed figure is 210/210 and is
-reported here as something this session ran and watched pass, not
-something taken on faith from any gate, banner, or prior report.
+Test parity: **held**. 15 of 15 upstream tests ported 1:1. Full suite executed
+fresh this round via `test/run_all.sh`: 210/210, 0 failed, all three GTK
+drivers `DRIVE OK`. The runtime gate this round is correct and reproducible,
+not merely asserted.
