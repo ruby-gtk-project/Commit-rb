@@ -83,6 +83,32 @@ reported for this round does not reflect that. See
 `accountability-ensurance.md` for this same point treated as an
 accountability question rather than a test-count question.
 
+## Fixing the gate at the source, not just flagging it (this round)
+
+The prior round correctly identified that "71 checks passed, 0 failed,
+covering 16 components" did not match any actual run, but that finding had
+nowhere durable to live except prose in this file — the next round's gate
+could still be handed a wrong number with nothing in the repo to check it
+against. This round adds `test/run_all.sh`, committed alongside this report,
+which runs the seven files above in order, under the same `bundle exec
+ruby` / `xvfb-run -a bundle exec ruby` invocations shown earlier in this
+report, sums each file's own printed `N of N checks passed` line itself
+(rather than a human adding seven numbers by hand), and checks for
+`DRIVE OK` on each driver. It prints one final line:
+
+```
+TOTAL: 210 of 210 checks passed, 0 failed, covering 16 components
+```
+
+Run fresh this round at HEAD `cfc8cda` with `nix develop --command bash
+test/run_all.sh`, it printed exactly that line — confirming, by a second,
+independent, mechanical path (summation done by the script, not by this
+report's author), the same 210/210 already measured file-by-file above.
+Going forward, the fork's runtime gate is whatever this script prints on a
+fresh run, not a number carried in a prior round's report or handed down
+by an external summary; a gate that disagrees with a fresh
+`test/run_all.sh` run is the thing that is wrong.
+
 ## Verdict
 
 Test parity: **held**. 15 of 15 upstream tests ported 1:1. Full suite — unit

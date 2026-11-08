@@ -56,6 +56,12 @@ either stated number, and nothing found in this round's testing suggests any
 of the 16 components is actually unverified — the undercount appears to be a
 reporting error in the gate itself, not a missing test run.
 
+This round closes that gap at the source rather than flagging it again:
+`test/run_all.sh`, added this round, runs the full seven-file suite and
+sums the results itself, printing `TOTAL: 210 of 210 checks passed, 0
+failed, covering 16 components`. Run fresh at HEAD `cfc8cda`, it reproduces
+that exact line. See `test-parity.md` for the script and the fresh run.
+
 ## Verdict
 
 16 of 16 units: parity confirmed again, independently, this round. No new

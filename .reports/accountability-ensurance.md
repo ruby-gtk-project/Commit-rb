@@ -112,3 +112,15 @@ possible; the finding here is the inverse shape — the gate undersells a
 port that in fact tests clean — but it is reported with the same bluntness
 either direction would require, because trusting an unverified number
 either way is the failure this skill exists to prevent.
+
+This round went one step further than naming the discrepancy: it added
+`test/run_all.sh`, a script that runs the full seven-file suite itself and
+sums the totals mechanically, so a future round's gate can be checked
+against a fresh, reproducible run instead of against prose in a report.
+Run fresh at this round's HEAD `cfc8cda`, it printed `TOTAL: 210 of 210
+checks passed, 0 failed, covering 16 components` — the same number this
+and the prior round both reached by hand, now obtained a second way. The
+underlying defect was in whatever produced the "71" figure outside this
+repository, not in anything this port's own code or test files generate;
+this script is this round's answer to "fix it at the source" for the part
+of the source this repository can actually own.
