@@ -23,9 +23,7 @@ gemspec
 # whole bundle, gtk4 and adwaita included, and nothing can be run at all. It is
 # release tooling, not a runtime dependency, so it joins the bundle only on a
 # Ruby that can have it.
-if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("4.0")
-  gem "kettle-family", "~> 1.3", ">= 1.3.37"
-end
+gem "kettle-family", "~> 1.3", ">= 1.3.37"
 
 # Local workspace dependency wiring for *_local.gemfile overrides
 gem "nomono", "~> 1.1", ">= 1.1.17", require: false # ruby >= 3.2.0
